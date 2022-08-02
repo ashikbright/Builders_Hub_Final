@@ -26,8 +26,11 @@ public class Common {
         } else if (status_code.equals("2")) {
             st = "Cancelled";
         } else if (status_code.equals("3")) {
+            st = "Completed";
+        } else if (status_code.equals("4")) {
             st = "Order placed";
         }
+
 
         Log.d("statusCheck", "conditions not met , status is: " + st);
         CURRENT_ORDER_STATUS = st;

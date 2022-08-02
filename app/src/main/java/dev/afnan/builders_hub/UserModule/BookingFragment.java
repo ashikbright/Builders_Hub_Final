@@ -66,10 +66,11 @@ public class BookingFragment extends Fragment {
 
         if (userID != null) {
 
-            order.child(userID).child("orderRequests").addListenerForSingleValueEvent(new ValueEventListener() {
+            order.child(userID).child("orderRequests").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                    orderList.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Order myOrder = dataSnapshot.getValue(Order.class);
                         orderList.add(myOrder);

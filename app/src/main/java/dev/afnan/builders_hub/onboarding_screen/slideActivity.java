@@ -12,9 +12,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import dev.afnan.builders_hub.AccessLevelDecider;
+import dev.afnan.builders_hub.auth.AccessLevelDecider;
 import dev.afnan.builders_hub.R;
-import dev.afnan.builders_hub.UserModule.UserActivity;
 
 
 public class slideActivity extends AppCompatActivity {

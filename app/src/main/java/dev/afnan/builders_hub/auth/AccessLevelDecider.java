@@ -1,13 +1,10 @@
-package dev.afnan.builders_hub;
+package dev.afnan.builders_hub.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.UiAutomation;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,12 +14,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
-import dev.afnan.builders_hub.Common.Common;
-import dev.afnan.builders_hub.Models.User;
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.UserModule.UserActivity;
-import dev.afnan.builders_hub.auth.loginActivity;
 
 public class AccessLevelDecider extends AppCompatActivity {
 
