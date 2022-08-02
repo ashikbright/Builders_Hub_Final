@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,10 +24,10 @@ public class AccessLevelDecider extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private String userID;
-
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private String userID;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -33,17 +35,30 @@ public class AccessLevelDecider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_access_level_decider);
 
-        mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Users");
+        mAuth = FirebaseAuth.getInstance();
+
         user = mAuth.getCurrentUser();
-        userID = user.getUid();
+
+        Intent intent = getIntent();
+        Boolean LogStatus = intent.getBooleanExtra("statusCode", false);
+
+        if (LogStatus){
+            userID = intent.getStringExtra("uid");
+        }
+        else{
+            if (user != null) {
+                userID = user.getUid();
+            }
+        }
+
 
         if (userID != null){
             checkUserAccessLevel(userID);
         }
         else{
-            Toast.makeText(this, "USer is not found!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User is not found!", Toast.LENGTH_SHORT).show();
         }
 
     }
