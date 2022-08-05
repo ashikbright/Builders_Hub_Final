@@ -3,10 +3,10 @@ package dev.afnan.builders_hub.auth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.ProgressBar;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.UserModule.UserActivity;
+import dev.afnan.builders_hub.onboarding_screen.SplashActivity;
+import dev.afnan.builders_hub.onboarding_screen.slideActivity;
 
 public class AccessLevelDecider extends AppCompatActivity {
 
@@ -27,8 +29,7 @@ public class AccessLevelDecider extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private String userID;
-    private ProgressBar progressBar;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,10 @@ public class AccessLevelDecider extends AppCompatActivity {
 
         user = mAuth.getCurrentUser();
 
+        showAlertDialog();
+
         Intent intent = getIntent();
-        Boolean LogStatus = intent.getBooleanExtra("statusCode", false);
+        boolean LogStatus = intent.getBooleanExtra("statusCode", false);
 
         if (LogStatus){
             userID = intent.getStringExtra("uid");
@@ -53,7 +56,6 @@ public class AccessLevelDecider extends AppCompatActivity {
             }
         }
 
-
         if (userID != null){
             checkUserAccessLevel(userID);
         }
@@ -61,11 +63,26 @@ public class AccessLevelDecider extends AppCompatActivity {
             Toast.makeText(this, "User is not found!", Toast.LENGTH_SHORT).show();
         }
 
+        new Handler().postDelayed(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                          progressDialog.dismiss();
+                                      }
+                                      }, 3000
+        );
+
+    }
+
+    private void showAlertDialog() {
+        progressDialog = new ProgressDialog(AccessLevelDecider.this);
+        progressDialog.setTitle("Please Wait");
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
     }
 
 
     private void checkUserAccessLevel(String uid) {
-
 
         myRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
