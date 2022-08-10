@@ -25,7 +25,7 @@
         <activity android:name=".auth.loginActivity" />
         <activity android:name=".UserModule.ConfirmOrder" />
         <activity android:name=".UserModule.UserActivity" />
-
+        <activity android:name=".UserModule.AboutUs"/>
         <receiver android:name=".utility.NetworkChangeListener">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

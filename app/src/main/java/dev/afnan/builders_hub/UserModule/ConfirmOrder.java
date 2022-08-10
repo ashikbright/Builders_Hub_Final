@@ -1,9 +1,12 @@
 package dev.afnan.builders_hub.UserModule;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,13 +38,22 @@ public class ConfirmOrder extends AppCompatActivity {
     EditText editTotalWorkers;
     EditText editNoDays;
     EditText editLocation;
-    Button placeOrderButton;
+    Button placeOrderButton,Home,Status;
     Spinner spinner;
     FirebaseDatabase database;
     DatabaseReference orderReference;
     DatabaseReference requestReference;
     FirebaseAuth mAuth;
     public int counter = 1;
+    Dialog dialog;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(dialog!=null){
+            dialog.dismiss();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,15 +110,38 @@ public class ConfirmOrder extends AppCompatActivity {
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Boolean res = checkoutData();
                 if (res) {
                     editTotalWorkers.getText().clear();
                     editNoDays.getText().clear();
                     editLocation.getText().clear();
-                }
 
+                }
+                dialog.show();
             }
         });
+        dialog=new Dialog(ConfirmOrder.this);
+        dialog.setContentView(R.layout.confirm_dialog);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.confirm_dialog_backgroud));
+//        }
+//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false); //Optional
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+         Home=dialog.findViewById(R.id.btn_goto_home);
+
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Intent intent=new Intent(ConfirmOrder.this,HomeFragment.class);
+               // startActivity(intent);
+                Toast.makeText(ConfirmOrder.this, "Home", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
 
     }
 

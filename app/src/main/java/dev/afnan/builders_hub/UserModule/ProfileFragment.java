@@ -115,11 +115,11 @@ public class ProfileFragment extends Fragment {
 
         int[] imageIDs = {
                 R.drawable.profile_icon, R.drawable.mobile_icon, R.drawable.email_icon,
-                R.drawable.share_icon, R.drawable.start_icon, R.drawable.logout_icon
+                R.drawable.ic_baseline_info_24, R.drawable.share_icon, R.drawable.logout_icon
         };
 
         String[] itemNames = {
-                "Name", "Mobile", "Email", "Refer a Friend", "Rate Builders Hub", "LOG OUT"
+                "Name", "Mobile", "Email", "About Us", "Refer a Friend", "LOG OUT"
         };
 
         String[] data = {
@@ -145,6 +145,11 @@ public class ProfileFragment extends Fragment {
                     break;
 
                 case 4:
+                    Intent mIntent = new Intent(getActivity(),AboutUs.class);
+                    startActivity(mIntent);
+                    break;
+
+                case 5:
                     Intent myIntent = new Intent(Intent.ACTION_SEND);
                     myIntent.setType("text/plain");
                     String body = "Download Builder Hub now!/n {appLink}";
@@ -152,23 +157,20 @@ public class ProfileFragment extends Fragment {
                     myIntent.putExtra(Intent.EXTRA_SUBJECT, sub);
                     myIntent.putExtra(Intent.EXTRA_TEXT, body);
                     startActivity(Intent.createChooser(myIntent, "Share Using"));
-                    break;
-
-                case 5:
-                    new AlertDialog.Builder(getActivity())
-                            .setIcon(R.drawable.start_icon)
-                            .setTitle("Rate this app")
-                            .setMessage(R.string.rate_dialog_message)
-                            .setPositiveButton("Rate It Now", (dialog, which) -> {
-
-                            })
-                            .setNeutralButton("Remind Me Later", (dialog, which) -> {
-
-                            })
-                            .setNegativeButton("No, Thanks", (dialog, which) -> {
-
-                            })
-                            .show();
+//                    new AlertDialog.Builder(getActivity())
+//                            .setIcon(R.drawable.start_icon)
+//                            .setTitle("Rate this app")
+//                            .setMessage(R.string.rate_dialog_message)
+//                            .setPositiveButton("Rate It Now", (dialog, which) -> {
+//
+//                            })
+//                            .setNeutralButton("Remind Me Later", (dialog, which) -> {
+//
+//                            })
+//                            .setNegativeButton("No, Thanks", (dialog, which) -> {
+//
+//                            })
+//                            .show();
                     break;
 
                 case 6:

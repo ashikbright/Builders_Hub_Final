@@ -52,6 +52,8 @@
     <string name="my_bookings">My Bookings</string>
     <string name="summary_note">Summary Note : Once the Booking is Accepted , Please Discuss and Finalize the Work Requirements and Charges / Amount Directly with the Service Provider .</string>
 
+    <string name="about_us_1"><br>In this developing digital era, the bulk of systems is leaning toward the adoption of digital technologies. Even the pandemic provided an opportunity for people to learn about and apply digital innovations. As a result, businesses are not exempt from this technology. Builders Hub provide a digital platform for managing a flexible and rapid working environment. The main goal is to provide a digital platform for managing a quick and permissive working environment between Us and Construction Workers. The benefit is that it allows clients to accomplish their work more quickly and at a lower cost. To eliminate challenges associated with finding workers for clients at a variety of prices.</br></string>
+    <string name="about_us_2"><br>Mr. Mohammad is a successful government-accredited contractor from Putturs Kabaka village. He has more than 37 years of contracting experience. He worked on a range of government projects, including road and bridge construction, Panchayath building construction, and school construction.</br></string>
 
     <array name="worker_type">
         <item>Labour</item>
