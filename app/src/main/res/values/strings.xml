@@ -83,7 +83,7 @@
 
     <string name="worker_type">Worker Type:</string>
     <string name="add_new_worker">Add New Worker</string>
-    <string name="my_orders">My Orders</string>
+    <string name="my_orders">Manage Orders</string>
 
     <string-array name="materialsModel">
         <item>Select Material</item>
