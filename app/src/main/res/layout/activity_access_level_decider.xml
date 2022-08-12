@@ -7,19 +7,17 @@
     android:background="@color/colorBGDark"
     tools:context=".auth.AccessLevelDecider">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="300dp"
-        android:layout_height="180dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo"
-        android:contentDescription="@string/logo"
-
+    <ProgressBar
+        android:id="@+id/access_level_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/tagline"
@@ -27,28 +25,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
         android:paddingTop="10dp"
-        android:text="@string/tagline"
+        android:text="Please wait..."
         android:textAlignment="center"
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/text_color"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/logo"
+        app:layout_constraintEnd_toEndOf="@+id/access_level_progress_bar"
         app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="@+id/logo"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-    <TextView
-        android:id="@+id/footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:text="@string/footer_text"
-        android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagline"
-        app:layout_constraintVertical_bias="0.658" />
+        app:layout_constraintStart_toStartOf="@+id/access_level_progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/access_level_progress_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

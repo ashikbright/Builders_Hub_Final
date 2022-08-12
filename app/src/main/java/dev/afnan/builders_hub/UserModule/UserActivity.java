@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import dev.afnan.builders_hub.Common.Common;
 import dev.afnan.builders_hub.Models.User;
 import dev.afnan.builders_hub.R;
-import dev.afnan.builders_hub.utility.NetworkChangeListener;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 //import com.google.android.material.navigation.Navigation;
@@ -46,13 +46,14 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        broadcastReceiver = new NetworkChangeListener();
         homeFragment = new HomeFragment();
         storage = FirebaseStorage.getInstance();
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, homeFragment).commit();
+
+        checkNetworkConnection connection = new checkNetworkConnection(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -122,27 +123,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        try {
-//            IntentFilter filter = new IntentFilter();
-//            registerReceiver(broadcastReceiver, filter);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        super.onStart();
-//    }
-//
-//
-//    @Override
-//    protected void onStop() {
-//        try {
-//            unregisterReceiver(broadcastReceiver);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        super.onStop();
-//    }
 
 
 }

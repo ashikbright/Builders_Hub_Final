@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context="dev.afnan.builders_hub.ProjectModule.ProjectsHome">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_background"
+        android:padding="10dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Manage Project"
+            android:padding="5dp"
+            android:textColor="#FFFFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.098" />
+
+        <ImageButton
+            android:id="@+id/project_home__back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/header_background"
+            android:src="@drawable/ic_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#ffffff">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+            <ImageButton
+                android:id="@+id/img_btn_worker"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/worker1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/img_btn_material"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/materials1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/img_btn_attendance"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="@string/todo"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/attendance1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/img_btn_payments"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/payments1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/img_btn_photos"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/photos1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

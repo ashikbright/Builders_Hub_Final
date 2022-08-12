@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import dev.afnan.builders_hub.Models.User;
 import dev.afnan.builders_hub.R;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class registerActivity extends AppCompatActivity {
 
@@ -38,6 +39,7 @@ public class registerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
+        checkNetworkConnection connection = new checkNetworkConnection(this);
 
         btnLogin = findViewById(R.id.loginHere);
         btnRegisterUser = findViewById(R.id.createAccount);

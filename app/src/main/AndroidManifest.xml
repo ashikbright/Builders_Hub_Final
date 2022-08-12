@@ -25,12 +25,29 @@
         <activity android:name=".auth.loginActivity" />
         <activity android:name=".UserModule.ConfirmOrder" />
         <activity android:name=".UserModule.UserActivity" />
-        <activity android:name=".UserModule.AboutUs"/>
-        <receiver android:name=".utility.NetworkChangeListener">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <activity android:name=".UserModule.AboutUs" />
+
+
+        <activity android:name="dev.afnan.builders_hub.AdminModule.AdminActivity" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageAttendance.DisplayAttendanceDetails" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageAttendance.DisplayAttendanceDate" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageAttendance.MarkAttendance" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageMaterials.Material_Used" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageMaterials.Material_Home" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageMaterials.Material_Received" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ProjectsHome" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageWorkers.ProjectManageWorker" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManageWorkers.ProjectAddWorker" />
+        <activity android:name="dev.afnan.builders_hub.AdminModule.ListOrders" />
+        <activity android:name="dev.afnan.builders_hub.WorkerModule.WorkersDetails" />
+        <activity android:name="dev.afnan.builders_hub.WorkerModule.WorkerDetailsHome" />
+        <activity android:name="dev.afnan.builders_hub.WorkerModule.WorkerRegistration" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManagePhotos.ProjectPhotosDisplayActivity" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManagePhotos.ProjectPhotos" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManagePayments.PaymentOut" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManagePayments.PaymentIn" />
+        <activity android:name="dev.afnan.builders_hub.ProjectModule.ManagePayments.ProjectPayment" />
+
 
         <meta-data
             android:name="preloaded_fonts"

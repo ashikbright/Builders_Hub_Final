@@ -2,7 +2,6 @@ package dev.afnan.builders_hub.ViewHolder;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,12 @@ import dev.afnan.builders_hub.Models.Order;
 import dev.afnan.builders_hub.R;
 
 
-public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.OrderViewHolder> {
+public class bookingsRecyclerAdapter extends RecyclerView.Adapter<bookingsRecyclerAdapter.OrderViewHolder> {
 
     Context context;
     ArrayList<Order> orderList;
 
-    public recyclerAdapter(Context context, ArrayList<Order> orderList) {
+    public bookingsRecyclerAdapter(Context context, ArrayList<Order> orderList) {
         this.context = context;
         this.orderList = orderList;
     }

@@ -2,11 +2,9 @@ package dev.afnan.builders_hub.UserModule;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,29 +28,31 @@ import java.util.Locale;
 
 import dev.afnan.builders_hub.Common.Common;
 import dev.afnan.builders_hub.Models.Order;
-import dev.afnan.builders_hub.Models.User;
 import dev.afnan.builders_hub.Models.UserProfile;
 import dev.afnan.builders_hub.R;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class ConfirmOrder extends AppCompatActivity {
     EditText editTotalWorkers;
     EditText editNoDays;
     EditText editLocation;
-    Button placeOrderButton,Home,Status;
+    Button placeOrderButton, btnHome, Status;
     Spinner spinner;
     FirebaseDatabase database;
     DatabaseReference orderReference;
     DatabaseReference requestReference;
     FirebaseAuth mAuth;
     public int counter = 1;
-    Dialog dialog;
+    Dialog confirmDialog;
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(dialog!=null){
-            dialog.dismiss();
+
+        if (confirmDialog != null) {
+            confirmDialog.dismiss();
         }
+
     }
 
     @Override
@@ -66,6 +66,8 @@ public class ConfirmOrder extends AppCompatActivity {
         placeOrderButton = findViewById(R.id.BtnSave);
         spinner = findViewById(R.id.wtype);
         mAuth = FirebaseAuth.getInstance();
+
+        checkNetworkConnection connection = new checkNetworkConnection(this);
 
         database = FirebaseDatabase.getInstance();
         requestReference = database.getReference().child("Orders");
@@ -118,27 +120,21 @@ public class ConfirmOrder extends AppCompatActivity {
                     editLocation.getText().clear();
 
                 }
-                dialog.show();
+                confirmDialog.show();
             }
         });
-        dialog=new Dialog(ConfirmOrder.this);
-        dialog.setContentView(R.layout.confirm_dialog);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.confirm_dialog_backgroud));
-//        }
-//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false); //Optional
-        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
-         Home=dialog.findViewById(R.id.btn_goto_home);
+        confirmDialog = new Dialog(ConfirmOrder.this);
+        confirmDialog.setContentView(R.layout.confirm_dialog);
+        confirmDialog.setCancelable(false); //Optional
 
-        Home.setOnClickListener(new View.OnClickListener() {
+        btnHome = confirmDialog.findViewById(R.id.btn_goto_home);
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent=new Intent(ConfirmOrder.this,HomeFragment.class);
-               // startActivity(intent);
-                Toast.makeText(ConfirmOrder.this, "Home", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                confirmDialog.dismiss();
+                finish();
             }
         });
 
@@ -208,11 +204,6 @@ public class ConfirmOrder extends AppCompatActivity {
 
         DatabaseReference currentOrder = orderReference.child("orderRequests").child(String.valueOf(counter));
         currentOrder.setValue(workInfo);
-
-
-        Toast.makeText(this, "Thank you order placed.", Toast.LENGTH_SHORT).show();
-        finish();
-
 
         return true;
     }

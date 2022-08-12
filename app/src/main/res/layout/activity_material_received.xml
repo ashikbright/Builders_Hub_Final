@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dev.afnan.builders_hub.ProjectModule.ManageMaterials.Material_Received">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_background"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back_list_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/header_background"
+            android:padding="5dp"
+            android:src="@drawable/ic_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Received Material"
+            android:textColor="#FFFFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/edParty_name"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_bg"
+        android:drawableStart="@drawable/ic_party_name"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Party Name *"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="#0F1051"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
+        app:layout_constraintVertical_bias="0.050000012"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@id/spinner">
+
+        <EditText
+            android:id="@+id/edQuantity"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_bg"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Quantity *"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="#0F1051"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pay_in_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:layout_margin="5dp"
+            android:textColor="#0F1051"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edUnitrate"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_bg"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Unit Rate"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="#0F1051"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvMaterialcost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Material Cost  ₹"
+        android:textColor="#0F1051"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="0"
+        android:textColor="#0F1051"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMaterialcost"
+        app:layout_constraintStart_toEndOf="@+id/tvMaterialcost"
+        app:layout_constraintTop_toTopOf="@+id/tvMaterialcost" />
+
+
+    <EditText
+        android:id="@+id/edDate"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_bg"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:drawableStart="@drawable/ic_date"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="Date"
+        android:padding="10dp"
+        android:textColor="#0F1051"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/edParty_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edParty_name"
+        app:layout_constraintTop_toTopOf="@+id/edParty_name"
+        tools:ignore="MissingConstraints" />
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+
+        android:background="@drawable/edittext_bg"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edDate" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="200dp"
+        android:layout_height="53dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/save_btn_style"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="SAVE"
+        android:textColor="#F1F1F1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMaterialcost" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

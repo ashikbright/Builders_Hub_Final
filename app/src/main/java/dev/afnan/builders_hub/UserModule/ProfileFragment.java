@@ -21,20 +21,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import dev.afnan.builders_hub.Common.Common;
-import dev.afnan.builders_hub.ViewHolder.ListAdapter;
-import dev.afnan.builders_hub.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import dev.afnan.builders_hub.Common.Common;
+import dev.afnan.builders_hub.ProjectModule.ManagePhotos.ProjectPhotosDisplayActivity;
+import dev.afnan.builders_hub.R;
+import dev.afnan.builders_hub.ViewHolder.ProfileListAdapter;
 import dev.afnan.builders_hub.auth.loginActivity;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -67,6 +68,8 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
+
+        checkNetworkConnection connection = new checkNetworkConnection(getActivity());
 
         storageReference = storage.getReference().child("Users/" + FirebaseAuth.getInstance().getUid() + "/profile.jpg");
         progressBar.setVisibility(View.VISIBLE);
@@ -115,18 +118,18 @@ public class ProfileFragment extends Fragment {
 
         int[] imageIDs = {
                 R.drawable.profile_icon, R.drawable.mobile_icon, R.drawable.email_icon,
-                R.drawable.ic_baseline_info_24, R.drawable.share_icon, R.drawable.logout_icon
+                R.drawable.ic_baseline_info_24, R.drawable.our_works_icon, R.drawable.share_icon, R.drawable.logout_icon
         };
 
         String[] itemNames = {
-                "Name", "Mobile", "Email", "About Us", "Refer a Friend", "LOG OUT"
+                "Name", "Mobile", "Email", "About Us", "Our Works", "Refer a Friend", "LOG OUT"
         };
 
         String[] data = {
-                name, phone, email, " ", " ", " "
+                name, phone, email, " ", " ", " ", " "
         };
 
-        ListAdapter listAdapter = new ListAdapter(getActivity(), imageIDs, itemNames, data);
+        ProfileListAdapter listAdapter = new ProfileListAdapter(getActivity(), imageIDs, itemNames, data);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -145,11 +148,16 @@ public class ProfileFragment extends Fragment {
                     break;
 
                 case 4:
-                    Intent mIntent = new Intent(getActivity(),AboutUs.class);
+                    Intent mIntent = new Intent(getActivity(), AboutUs.class);
                     startActivity(mIntent);
                     break;
 
                 case 5:
+                    Intent in = new Intent(getActivity(), ProjectPhotosDisplayActivity.class);
+                    startActivity(in);
+                    break;
+
+                case 6:
                     Intent myIntent = new Intent(Intent.ACTION_SEND);
                     myIntent.setType("text/plain");
                     String body = "Download Builder Hub now!/n {appLink}";
@@ -157,24 +165,9 @@ public class ProfileFragment extends Fragment {
                     myIntent.putExtra(Intent.EXTRA_SUBJECT, sub);
                     myIntent.putExtra(Intent.EXTRA_TEXT, body);
                     startActivity(Intent.createChooser(myIntent, "Share Using"));
-//                    new AlertDialog.Builder(getActivity())
-//                            .setIcon(R.drawable.start_icon)
-//                            .setTitle("Rate this app")
-//                            .setMessage(R.string.rate_dialog_message)
-//                            .setPositiveButton("Rate It Now", (dialog, which) -> {
-//
-//                            })
-//                            .setNeutralButton("Remind Me Later", (dialog, which) -> {
-//
-//                            })
-//                            .setNegativeButton("No, Thanks", (dialog, which) -> {
-//
-//                            })
-//                            .show();
                     break;
 
-                case 6:
-
+                case 7:
                     new AlertDialog.Builder(getActivity())
                             .setIcon(R.drawable.warning_icon)
                             .setTitle("LOGOUT")
@@ -195,7 +188,6 @@ public class ProfileFragment extends Fragment {
         });
 
     }
-
 
 
     @Override

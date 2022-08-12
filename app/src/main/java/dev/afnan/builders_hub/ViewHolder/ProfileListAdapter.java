@@ -9,11 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import dev.afnan.builders_hub.R;
 
 
-public class ListAdapter extends BaseAdapter {
+public class ProfileListAdapter extends BaseAdapter {
 
     Context context;
     String[] itemName;
@@ -22,7 +21,7 @@ public class ListAdapter extends BaseAdapter {
 
     LayoutInflater inflater;
 
-    public ListAdapter(Context context, int[] imageIDs, String[] listNames, String[] listItems) {
+    public ProfileListAdapter(Context context, int[] imageIDs, String[] listNames, String[] listItems) {
         this.context = context;
         this.itemName = listNames;
         this.listItems = listItems;

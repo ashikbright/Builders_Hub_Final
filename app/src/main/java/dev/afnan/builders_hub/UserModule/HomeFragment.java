@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 
 import dev.afnan.builders_hub.R;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class HomeFragment extends Fragment {
 
@@ -24,6 +25,7 @@ public class HomeFragment extends Fragment {
 
         init(view);
 
+        checkNetworkConnection connection = new checkNetworkConnection(getActivity());
 
     return view;
     }

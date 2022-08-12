@@ -11,6 +11,7 @@
     <!--  Background color  -->
     <color name="colorBG">#F1F1F1</color>
     <color name="colorBackground">#FFF599</color>
+    <color name="bgColor">#F1F1F1</color>
 
     <color name="text_color">#0F1051</color>
     <color name="colorBGDark">#FFF599</color>
@@ -19,7 +20,11 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
 
+    <color name="colorSuccess">#1E881E</color>
+    <color name="colorFailure">#881B1B</color>
 
+    <color name="colorTrueRecycler">#1400FF00</color>
+    <color name="colorFalseRecycler">#14FF0000</color>
 
 
 </resources>

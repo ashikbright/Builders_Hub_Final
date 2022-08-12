@@ -26,7 +26,8 @@ import java.util.Comparator;
 
 import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.Models.Order;
-import dev.afnan.builders_hub.ViewHolder.recyclerAdapter;
+import dev.afnan.builders_hub.ViewHolder.bookingsRecyclerAdapter;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 
 public class BookingFragment extends Fragment {
@@ -34,7 +35,7 @@ public class BookingFragment extends Fragment {
     public RecyclerView.LayoutManager layoutManager;
     FirebaseDatabase database;
     DatabaseReference order;
-    recyclerAdapter myAdapter;
+    bookingsRecyclerAdapter myAdapter;
     ArrayList<Order> orderList;
 
 
@@ -53,9 +54,10 @@ public class BookingFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         orderList = new ArrayList<>();
-        myAdapter = new recyclerAdapter(getActivity(), orderList);
+        myAdapter = new bookingsRecyclerAdapter(getActivity(), orderList);
         recyclerView.setAdapter(myAdapter);
 
+        checkNetworkConnection connection = new checkNetworkConnection(getActivity());
 
         ProgressDialog dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Please Wait");

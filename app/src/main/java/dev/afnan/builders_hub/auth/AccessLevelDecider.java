@@ -1,13 +1,13 @@
 package dev.afnan.builders_hub.auth;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,10 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import dev.afnan.builders_hub.AdminModule.AdminActivity;
 import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.UserModule.UserActivity;
-import dev.afnan.builders_hub.onboarding_screen.SplashActivity;
-import dev.afnan.builders_hub.onboarding_screen.slideActivity;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class AccessLevelDecider extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class AccessLevelDecider extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private String userID;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,43 +41,27 @@ public class AccessLevelDecider extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         user = mAuth.getCurrentUser();
+        progressBar = findViewById(R.id.access_level_progress_bar);
 
-        showAlertDialog();
+        checkNetworkConnection connection = new checkNetworkConnection(this);
 
         Intent intent = getIntent();
         boolean LogStatus = intent.getBooleanExtra("statusCode", false);
 
-        if (LogStatus){
+        if (LogStatus) {
             userID = intent.getStringExtra("uid");
-        }
-        else{
+        } else {
             if (user != null) {
                 userID = user.getUid();
             }
         }
 
-        if (userID != null){
-            checkUserAccessLevel(userID);
-        }
-        else{
-            Toast.makeText(this, "User is not found!", Toast.LENGTH_SHORT).show();
-        }
-
         new Handler().postDelayed(new Runnable() {
-                                      @Override
-                                      public void run() {
-                                          progressDialog.dismiss();
-                                      }
-                                      }, 3000
-        );
-
-    }
-
-    private void showAlertDialog() {
-        progressDialog = new ProgressDialog(AccessLevelDecider.this);
-        progressDialog.setTitle("Please Wait");
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+            @Override
+            public void run() {
+                checkUserAccessLevel(userID);
+            }
+        }, 10);
 
     }
 
@@ -88,24 +72,24 @@ public class AccessLevelDecider extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.child("isAdmin").exists()) {
-                    Intent intent = new Intent(AccessLevelDecider.this, UserActivity.class);
+                if (snapshot.child("isAdmin").exists()) {
+                    Intent intent = new Intent(AccessLevelDecider.this, AdminActivity.class);
                     startActivity(intent);
-                    Toast.makeText(AccessLevelDecider.this, "ADMIN", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AccessLevelDecider.this, "ADMIN", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
-                else if (snapshot.child("isWorker").exists()){
-                    Intent intent = new Intent(AccessLevelDecider.this, UserActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(AccessLevelDecider.this, "Worker", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+//                else if (snapshot.child("isWorker").exists()){
+//                    Intent intent = new Intent(AccessLevelDecider.this, UserActivity.class);
+//                    startActivity(intent);
+//                    Toast.makeText(AccessLevelDecider.this, "Worker", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
 
-                else if (snapshot.child("isUser").exists()){
+                else if (snapshot.child("isUser").exists()) {
                     Intent intent = new Intent(AccessLevelDecider.this, UserActivity.class);
                     startActivity(intent);
-                    Toast.makeText(AccessLevelDecider.this, "USER", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AccessLevelDecider.this, "USER", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

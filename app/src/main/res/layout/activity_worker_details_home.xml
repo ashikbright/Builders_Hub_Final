@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="dev.afnan.builders_hub.AdminModule.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_background"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Manage Workers"
+            android:textColor="#FFFFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.098" />
+
+        <ImageButton
+            android:id="@+id/btn_back_workers_registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/header_background"
+            android:src="@drawable/ic_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/imgbtn_labour"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/labour1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_mistri"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="@string/todo"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/mistri"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/imgbtn_tiles"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/marble1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_painter"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/painter1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/imgbtn_furniture"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/furniture1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_plumber"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/plumber1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/imgbtn_plumber2"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="TODO"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/welder1"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_plumber3"
+                android:layout_width="141dp"
+                android:layout_height="121dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/image_layout"
+                android:contentDescription="@string/todo"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/electrician1"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.afnan.builders_hub.R;
+import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class loginActivity extends AppCompatActivity {
 
@@ -44,6 +45,8 @@ public class loginActivity extends AppCompatActivity {
         errorMsg = findViewById(R.id.errorMsg);
 
         mAuth = FirebaseAuth.getInstance();
+
+        checkNetworkConnection connection = new checkNetworkConnection(this);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
