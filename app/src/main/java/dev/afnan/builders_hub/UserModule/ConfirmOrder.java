@@ -3,13 +3,14 @@ package dev.afnan.builders_hub.UserModule;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -119,11 +120,15 @@ public class ConfirmOrder extends AppCompatActivity {
                     editNoDays.getText().clear();
                     editLocation.getText().clear();
 
+                    showSuccessDialog();
                 }
-                confirmDialog.show();
             }
         });
 
+
+    }
+
+    private void showSuccessDialog() {
         confirmDialog = new Dialog(ConfirmOrder.this);
         confirmDialog.setContentView(R.layout.confirm_dialog);
         confirmDialog.setCancelable(false); //Optional
@@ -137,8 +142,16 @@ public class ConfirmOrder extends AppCompatActivity {
                 finish();
             }
         });
+        confirmDialog.show();
 
-
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                confirmDialog.dismiss();
+                finish();
+            }
+        }, 3000);
     }
 
 
@@ -158,6 +171,11 @@ public class ConfirmOrder extends AppCompatActivity {
             return false;
         }
 
+        if (Integer.parseInt(totalWorkers) == 0 || Integer.parseInt(totalWorkers) < 0) {
+            editTotalWorkers.setError("please enter at least 1");
+            editTotalWorkers.requestFocus();
+            return false;
+        }
         if (Integer.parseInt(totalWorkers) > 20) {
             editTotalWorkers.setError("Not more than 20 workers!");
             editTotalWorkers.requestFocus();
@@ -170,11 +188,18 @@ public class ConfirmOrder extends AppCompatActivity {
             return false;
         }
 
+        if (Integer.parseInt(totalDays) == 0 || Integer.parseInt(totalDays) < 0) {
+            editNoDays.setError("please enter at least 1");
+            editNoDays.requestFocus();
+            return false;
+        }
+
         if (Integer.parseInt(totalDays) > 30) {
             editNoDays.setError("Maximum limit is 30 days!");
             editNoDays.requestFocus();
             return false;
         }
+
 
         if (address.isEmpty()) {
             editLocation.setError("Required!");

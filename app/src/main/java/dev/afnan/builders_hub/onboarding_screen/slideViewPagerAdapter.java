@@ -95,7 +95,7 @@ public class slideViewPagerAdapter extends PagerAdapter {
                 ind2.setImageResource(R.drawable.unselected);
                 ind3.setImageResource(R.drawable.unselected);
 
-                title.setText("Hire");
+                title.setText("Select");
                 desc.setText("Best Workers for your Job");
 
                 prev.setVisibility(View.GONE);
@@ -121,8 +121,8 @@ public class slideViewPagerAdapter extends PagerAdapter {
                 ind2.setImageResource(R.drawable.unselected);
                 ind3.setImageResource(R.drawable.selected);
 
-                title.setText("Interaction");
-                desc.setText("best worker for the job");
+                title.setText("Near You");
+                desc.setText("Workers Near Your Location");
 
                 prev.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);

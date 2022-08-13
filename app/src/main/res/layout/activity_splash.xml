@@ -22,19 +22,39 @@
         app:layout_constraintVertical_bias="0.43" />
 
     <TextView
-        android:id="@+id/tagline"
+        android:id="@+id/logo_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
-        android:paddingTop="10dp"
-        android:text="@string/tagline"
+        android:text="Builders Hub"
         android:textAlignment="center"
-        android:textColor="@color/text_color"
-        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="34sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:shadowDy="1"
+        android:shadowDx="1"
+        android:shadowRadius="1"
+        android:shadowColor="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="@+id/logo"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="@+id/logo"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <TextView
+        android:id="@+id/tagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:paddingTop="5dp"
+        android:text="@string/tagline"
+        android:textAlignment="center"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/logo_text"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/logo_text"
+        app:layout_constraintTop_toBottomOf="@+id/logo_text" />
 
     <TextView
         android:id="@+id/footer"
@@ -46,8 +66,8 @@
         android:textColor="@color/text_color"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tagline"
+        app:layout_constraintStart_toStartOf="@+id/tagline"
         app:layout_constraintTop_toBottomOf="@+id/tagline"
         app:layout_constraintVertical_bias="0.658" />
 

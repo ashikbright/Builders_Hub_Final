@@ -130,6 +130,7 @@
                     android:drawableStart="@drawable/ic_user"
                     android:drawablePadding="10dp"
                     android:ems="10"
+                    android:fontFamily="@font/roboto"
                     android:hint="@string/full_name"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
@@ -156,6 +157,7 @@
                     android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="10dp"
                     android:ems="10"
+                    android:fontFamily="@font/roboto"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp" />
@@ -166,16 +168,11 @@
                 android:id="@+id/textInputLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="10"
-                app:hintEnabled="false"
-                app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toEndOf="@+id/edemail"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/edemail"
-                app:layout_constraintTop_toBottomOf="@+id/edemail"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/edemail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
@@ -185,8 +182,10 @@
                     android:drawableStart="@drawable/ic_phone"
                     android:drawablePadding="10dp"
                     android:ems="10"
+                    android:fontFamily="@font/roboto"
                     android:hint="@string/phone"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:padding="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -258,7 +257,7 @@
                 android:id="@+id/addr1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="8dp"
                 android:inputType="textPersonName"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
@@ -284,6 +283,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 

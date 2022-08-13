@@ -49,7 +49,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:textColor="#CD000000"
                 android:textSize="18sp" />
 
@@ -75,6 +75,7 @@
             android:fontFamily="@font/roboto"
             android:hint="Workers Required in Total"
             android:inputType="number"
+            android:maxLength="2"
             android:padding="10dp"
             android:textColor="#000000" />
 
@@ -93,6 +94,8 @@
                 android:hint="Anticipated Work Duration"
                 android:padding="10dp"
                 android:inputType="number"
+                android:maxLength="2"
+                android:layout_weight="1"
                 android:background="@null"
                 android:textColor="#000000" />
 

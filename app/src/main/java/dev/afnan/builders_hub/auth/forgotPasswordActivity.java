@@ -1,6 +1,7 @@
 package dev.afnan.builders_hub.auth;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -68,9 +69,9 @@ public class forgotPasswordActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Toast.makeText(forgotPasswordActivity.this, "Check your email to reset the password", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(forgotPasswordActivity.this, "Try again! Something wrong happened", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(forgotPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(forgotPasswordActivity.this, "Please check your email and try again!", Toast.LENGTH_SHORT).show();
+                            Log.d("forgotPassword", "error is : " + task.getException().getMessage());
                         }
                         progressBar.setVisibility(View.GONE);
                     }

@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.afnan.builders_hub.R;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +31,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import dev.afnan.builders_hub.Models.Order;
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.ViewHolder.ListOrderRecyclerAdapter;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 

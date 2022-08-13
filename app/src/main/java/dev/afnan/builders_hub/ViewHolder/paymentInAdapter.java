@@ -17,15 +17,14 @@ import dev.afnan.builders_hub.Models.InPayment;
 
 public class paymentInAdapter extends RecyclerView.Adapter<paymentInAdapter.MyViewHolder> {
     Context context;
-    ArrayList<InPayment> inlist;
+    ArrayList<InPayment> inList;
 
     // ArrayList<OutPayment> outlist;
 
-    public paymentInAdapter(Context context, ArrayList<InPayment> inlist) {//, ArrayList<OutPayment> outlist) {
+    public paymentInAdapter(Context context, ArrayList<InPayment> inList) {             //, ArrayList<OutPayment> outlist) {
         this.context = context;
-        this.inlist = inlist;
+        this.inList = inList;
 
-        //this.outlist = outlist;
     }
 
     @NonNull
@@ -37,22 +36,18 @@ public class paymentInAdapter extends RecyclerView.Adapter<paymentInAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull paymentInAdapter.MyViewHolder holder, int position) {
-        InPayment inPayment = inlist.get(position);
-        // OutPayment outPayment=outlist.get(position);
+        InPayment inPayment = inList.get(position);
         holder.date.setText(inPayment.getDateIN());
         holder.desc.setText(inPayment.getDescriptionIn());
         holder.categ1.setText(inPayment.getC_type());
         holder.in.setText(new StringBuilder().append("₹").append(inPayment.getAmtrecieved()));
         holder.setIsRecyclable(false);
-//        holder.date.setText(outPayment.getDateOUT());
-//        holder.desc.setText(outPayment.getDescriptionOut());
-//        holder.categ2.setText(outPayment.getC_type());
-//        holder.out.setText(outPayment.getAmtPaid());
+
     }
 
     @Override
     public int getItemCount() {
-        return inlist.size();//+ outlist.size();
+        return inList.size();//+ outlist.size();
         // return outlist.size();
     }
 

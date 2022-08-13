@@ -16,7 +16,7 @@ import dev.afnan.builders_hub.R;
 public class SplashActivity extends AppCompatActivity {
 
     ImageView logo;
-    TextView tagLine, footer;
+    TextView tagLine, footer, logoText;
     Animation scale, fade;
 
     private static int SPLASH_SCREEN_TIME = 3000;
@@ -31,14 +31,15 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         logo = findViewById(R.id.logo);
+        logoText = findViewById(R.id.logo_text);
         tagLine = findViewById(R.id.tagline);
         footer = findViewById(R.id.footer);
 
         scale = AnimationUtils.loadAnimation(this, R.anim.scale);
-//        top = AnimationUtils.loadAnimation(this, R.anim.top);
         fade = AnimationUtils.loadAnimation(this, R.anim.fade);
 
         logo.setAnimation(scale);
+        logoText.setAnimation(fade);
         tagLine.setAnimation(fade);
         footer.setAnimation(fade);
 
