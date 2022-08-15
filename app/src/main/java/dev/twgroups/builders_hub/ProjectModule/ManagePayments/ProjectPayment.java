@@ -98,6 +98,74 @@ public class ProjectPayment extends AppCompatActivity {
         paymentOutAdapter = new paymentOutAdapter(this, outList);
         recyclerViewOut.setAdapter(paymentOutAdapter);
 
+        loadRecyclerViewData();
+
+        btnIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProjectPayment.this, PaymentIn.class);
+                intent.putExtra("projectID", projectID);
+                startActivity(intent);
+            }
+        });
+
+        btnOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProjectPayment.this, PaymentOut.class);
+                intent.putExtra("projectID", projectID);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void updateInAmt(String amtIN) {
+
+        projectRef = FirebaseDatabase.getInstance().getReference().child("Projects").child(projectID).child("ProjectInfo");
+
+        Map<String, Object> updates = new HashMap<String, Object>();
+        updates.put("amountIn", amtIN);
+        projectRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d("moveStatus", "success");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("moveStatus", "failed" + e.toString());
+            }
+        });
+
+    }
+
+    private void updateOutAmt(String amtOut) {
+
+        projectRef = FirebaseDatabase.getInstance().getReference().child("Projects").child(projectID).child("ProjectInfo");
+
+        Map<String, Object> updates = new HashMap<String, Object>();
+        updates.put("amountOut", amtOut);
+        projectRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d("moveStatus", "success");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("moveStatus", "failed" + e.toString());
+            }
+        });
+
+    }
+
+    private void loadRecyclerViewData() {
+
+        databaseRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("PaymentInfo");
+        inRef = databaseRef.child("IN");
+        outRef = databaseRef.child("OUT");
+
 
         mDBListener = inRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -177,66 +245,19 @@ public class ProjectPayment extends AppCompatActivity {
             }
         });
 
-        btnIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProjectPayment.this, PaymentIn.class);
-                intent.putExtra("projectID", projectID);
-                startActivity(intent);
-            }
-        });
-
-        btnOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProjectPayment.this, PaymentOut.class);
-                intent.putExtra("projectID", projectID);
-                startActivity(intent);
-            }
-        });
-
         Integer balanceAmount = totalInAmt - totalOutAmt;
         balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
     }
 
-    private void updateInAmt(String amtIN) {
-
-        projectRef = FirebaseDatabase.getInstance().getReference().child("Projects").child(projectID).child("ProjectInfo");
-
-        Map<String, Object> updates = new HashMap<String, Object>();
-        updates.put("amountIn", amtIN);
-        projectRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Log.d("moveStatus", "success");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("moveStatus", "failed" + e.toString());
-            }
-        });
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadRecyclerViewData();
     }
 
-    private void updateOutAmt(String amtOut) {
-
-        projectRef = FirebaseDatabase.getInstance().getReference().child("Projects").child(projectID).child("ProjectInfo");
-
-        Map<String, Object> updates = new HashMap<String, Object>();
-        updates.put("amountOut", amtOut);
-        projectRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Log.d("moveStatus", "success");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("moveStatus", "failed" + e.toString());
-            }
-        });
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRecyclerViewData();
     }
-
 }

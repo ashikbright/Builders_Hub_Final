@@ -79,6 +79,14 @@ public class ProjectPhotos extends AppCompatActivity {
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String desc = editDesc.getText().toString();
+                if (desc.isEmpty()) {
+                    editDesc.setError("Required!");
+                    editDesc.requestFocus();
+                    return;
+                }
+
                 if (imageUri != null) {
                     uploadToFirebase(imageUri);
                 } else {
@@ -89,17 +97,6 @@ public class ProjectPhotos extends AppCompatActivity {
 
     }
 
-    // @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode ==2 && resultCode == RESULT_OK && data != null){
-//
-//            imageUri = data.getData();
-//            imageView.setImageURI(imageUri);
-//
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

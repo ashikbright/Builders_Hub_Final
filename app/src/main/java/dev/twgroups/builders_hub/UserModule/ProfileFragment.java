@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -178,6 +179,11 @@ public class ProfileFragment extends Fragment {
                                 progressBar.setVisibility(View.GONE);
                                 Intent intent = new Intent(getActivity(), loginActivity.class);
                                 startActivity(intent);
+                                FragmentManager fm = getActivity().getSupportFragmentManager();
+                                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                                    fm.popBackStack();
+                                }
+                                requireActivity().finish();
                             })
                             .setNegativeButton("No", null)
                             .show();

@@ -75,7 +75,6 @@ public class AccessLevelDecider extends AppCompatActivity {
                 if (snapshot.child("isAdmin").exists()) {
                     Intent intent = new Intent(AccessLevelDecider.this, AdminActivity.class);
                     startActivity(intent);
-//                    Toast.makeText(AccessLevelDecider.this, "ADMIN", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
@@ -89,7 +88,6 @@ public class AccessLevelDecider extends AppCompatActivity {
                 else if (snapshot.child("isUser").exists()) {
                     Intent intent = new Intent(AccessLevelDecider.this, UserActivity.class);
                     startActivity(intent);
-//                    Toast.makeText(AccessLevelDecider.this, "USER", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
