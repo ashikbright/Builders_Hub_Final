@@ -7,11 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import dev.afnan.builders_hub.R;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +27,7 @@ import java.util.Map;
 
 import dev.afnan.builders_hub.Common.Common;
 import dev.afnan.builders_hub.Models.Order;
+import dev.afnan.builders_hub.R;
 
 import static android.content.ContentValues.TAG;
 
@@ -106,12 +106,10 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
         String orderID = CurrentOrder.getOrderId();
 
         updateStatusInFirebase(statusCode, CurrentOrder, orderID);
-        orderList.clear();
         notifyDataSetChanged();
     }
 
     private void updateStatusInFirebase(String statusCode, Order currentOrder, String orderID) {
-
 
         Query query = orderRef.child("orderRequests").orderByChild("orderId").equalTo(orderID);
 
@@ -123,13 +121,29 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
                     Log.d("parentKey", "order id :" + key);
                     Log.d("parentKey", "status code :" + statusCode);
 
-                    if (key != null) {
-                        Map<String, Object> updates = new HashMap<String, Object>();
-                        updates.put("status", currentOrder.getStatus());
-                        orderRef.child("orderRequests").child(key).updateChildren(updates);
-                    }
-                }
+                    Order myOrder = ds.getValue(Order.class);
+                    if (myOrder != null && myOrder.getStatus().equals(statusCode)) {
+                        Toast.makeText(context, "Failed to update status!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (key != null) {
 
+                            Map<String, Object> updates = new HashMap<String, Object>();
+                            updates.put("status", currentOrder.getStatus());
+
+                            orderRef.child("orderRequests").child(key).updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("updateStatus", "child updated successfully!");
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.d("keyError", "key not found");
+                        }
+                    }
+
+                }
             }
 
             @Override
@@ -139,8 +153,8 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
         };
         query.addListenerForSingleValueEvent(valueEventListener);
 
-
     }
+
 
     public void deleteOrder(int position, String userID) {
 

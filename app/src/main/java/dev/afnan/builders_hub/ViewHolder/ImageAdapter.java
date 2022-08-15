@@ -43,7 +43,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
         UploadImage uploadImageCurrent = mlist.get(position);
         holder.textViewName.setText(uploadImageCurrent.getDesc());
         //To load images in the recyclerview
-        Glide.with(context).load(mlist.get(position).getImageUrl()).into(holder.imageView);
+        Glide.with(context)
+                .load(mlist.get(position).getImageUrl())
+                .placeholder(R.drawable.user_profile_progress_bar)
+                .into(holder.imageView);
     }
 
     @Override

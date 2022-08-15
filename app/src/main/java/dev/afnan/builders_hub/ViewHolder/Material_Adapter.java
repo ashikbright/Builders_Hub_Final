@@ -19,7 +19,7 @@ public class Material_Adapter extends RecyclerView.Adapter<Material_Adapter.View
 
     ArrayList<MaterialsModel> list;
     Context context;
-    int selected = 1;
+    int selected;
 
 
     public Material_Adapter(ArrayList<MaterialsModel> list, Context context, int i) {

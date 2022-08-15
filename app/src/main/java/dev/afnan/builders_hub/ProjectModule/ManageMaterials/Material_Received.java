@@ -1,6 +1,5 @@
 package dev.afnan.builders_hub.ProjectModule.ManageMaterials;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,7 +7,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -26,16 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 import dev.afnan.builders_hub.Models.MaterialsModel;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class Material_Received extends AppCompatActivity {
-    private EditText partyname, date, quantity, urate;
+    private EditText partyname, recDate, quantity, urate;
     private Spinner material;
     private TextView amount;
     private Button save;
@@ -55,7 +51,7 @@ public class Material_Received extends AppCompatActivity {
         setContentView(R.layout.activity_material_received);
 
         partyname = findViewById(R.id.edParty_name);
-        date = findViewById(R.id.edDate);
+        recDate = findViewById(R.id.edDate);
         material = findViewById(R.id.spinner);
         quantity = findViewById(R.id.edQuantity);
         urate = findViewById(R.id.edUnitrate);
@@ -71,6 +67,7 @@ public class Material_Received extends AppCompatActivity {
 
         checkNetworkConnection connection = new checkNetworkConnection(this);
 
+        setDate();
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -121,7 +118,7 @@ public class Material_Received extends AppCompatActivity {
             public void onClick(View v) {
 
                 String partynm = partyname.getText().toString();
-                String purchaseddate = date.getText().toString();
+                String purchaseddate = recDate.getText().toString();
                 String purchasedmaterial = material.getSelectedItem().toString();
                 String purchasedquantity = quantity.getText().toString();
                 String unitrate = urate.getText().toString();
@@ -135,8 +132,8 @@ public class Material_Received extends AppCompatActivity {
                 }
 
                 if (purchaseddate.isEmpty()) {
-                    date.setError("Required!");
-                    date.requestFocus();
+                    recDate.setError("Required!");
+                    recDate.requestFocus();
                     return;
                 }
 
@@ -154,7 +151,7 @@ public class Material_Received extends AppCompatActivity {
 
 
                 modelclass.setParty(partyname.getText().toString());
-                modelclass.setDate(date.getText().toString());
+                modelclass.setDate(recDate.getText().toString());
                 modelclass.setMaterial(material.getSelectedItem().toString());
 
                 if (modelclass.getMaterial().equals("Select Material")) {
@@ -177,37 +174,19 @@ public class Material_Received extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         material.setAdapter(arrayAdapter);
 
+
+    }
+
+    private void setDate() {
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
+        final int month = calendar.get(Calendar.MONTH) + 1;
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                updateCalendar();
-            }
-
-            private void updateCalendar() {
-                String Format = "MM/dd/yy";
-                SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
-
-                date.setText(sdf.format(calendar.getTime()));
-            }
-        };
-
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(Material_Received.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-
+        String date = day + "/" + month + "/" + year;
+        recDate.setText(date);
+        recDate.setEnabled(false);
     }
 
 

@@ -11,7 +11,7 @@ public class Common {
 
     public static Uri userProfileImage;
 
-    public static int orderCount;
+    public static String adminToken = "dICWAWxtRqStbFxzJLyGJp:APA91bGzJfve01EE19uehsBAN8-118uQtHqZ9ulS2T3XJmyjVdjrzKAafRL17vnY_uia7afNBUdm3IyvaeXG4IfEISo4wqw5yiDNIlxmRS-uR8raknbFw_9CuGleUXGEo4ZyVC0rYc3X";
 
     public static String CURRENT_ORDER_STATUS;
 
@@ -21,7 +21,7 @@ public class Common {
 
     public static String checkStatus(String status_code) {
 
-        String st = "N/A";
+        String st = "Pending";
 
         if (status_code.equals("0")) {
             st = "Pending";
@@ -29,13 +29,13 @@ public class Common {
             st = "Accepted";
         } else if (status_code.equals("2")) {
             st = "Cancelled";
-        } else if (status_code.equals("3")) {
-            st = "Completed";
-        } else if (status_code.equals("4")) {
-            st = "Order placed";
         }
+//        else if (status_code.equals("3")) {
+//            st = "Completed";
+//        } else if (status_code.equals("4")) {
+//            st = "Order placed";
+//        }
 
-        Log.d("statusCheck", "conditions not met , status is: " + st);
         CURRENT_ORDER_STATUS = st;
 
         return CURRENT_ORDER_STATUS;

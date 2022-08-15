@@ -24,7 +24,7 @@ public class Order {
         this.totalDays = totalDays;
         this.address = address;
         this.date = date;
-        this.status = "0";          //default=0,  placed=1,  accepted=2,  cancelled=3
+        this.status = "0";          //pending=0,  accepted=1, cancelled=2
     }
 
     public String getWorkerType() {
@@ -83,22 +83,5 @@ public class Order {
         this.status = status;
     }
 
-    public String checkStatus() {
-
-        String st = "N/A";
-
-        if (status.equals("0")) {
-            st = "Order Placed";
-        } else if (status.equals("1")) {
-            st = "Pending";
-        } else if (status.equals("2")) {
-            st = "Accepted";
-        } else if (status.equals("3")) {
-            st = "cancelled";
-        }
-
-        Log.d("statusCheck", "conditions not met , status is: " + st);
-        return st;
-    }
 
 }

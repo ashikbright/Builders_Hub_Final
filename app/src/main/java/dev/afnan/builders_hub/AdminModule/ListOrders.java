@@ -64,7 +64,7 @@ public class ListOrders extends AppCompatActivity {
         order = database.getReference("Orders");
         orderRef = order.child(userID);
 
-        recyclerView = findViewById(R.id.BookingsRecycler);
+        recyclerView = findViewById(R.id.list_order_recycler);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -72,7 +72,6 @@ public class ListOrders extends AppCompatActivity {
         orderList = new ArrayList<>();
         myAdapter = new ListOrderRecyclerAdapter(this, orderList);
         recyclerView.setAdapter(myAdapter);
-
 
         imageButton.setOnClickListener(v -> finish());
 
@@ -87,8 +86,8 @@ public class ListOrders extends AppCompatActivity {
             order.child(userID).child("orderRequests").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                     if (snapshot.exists()) {
+                        orderList.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Order myOrder = dataSnapshot.getValue(Order.class);
                             orderList.add(myOrder);
@@ -100,7 +99,6 @@ public class ListOrders extends AppCompatActivity {
                         Log.d("orderData", orderList.toString());
                     } else {
                         Log.d("orderData", "not found");
-                        deleteItem(userID);
                     }
 
                 }
@@ -120,32 +118,7 @@ public class ListOrders extends AppCompatActivity {
 
     }
 
-    private void deleteItem(String userID) {
 
-        order.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                order.child(userID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("deleteStatus", "successfully deleted.");
-                        } else {
-                            Log.d("deleteStatus", "not deleted.");
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
 
 
     private void sortOrders() {
@@ -180,7 +153,7 @@ public class ListOrders extends AppCompatActivity {
     private void showUpdateSpinner(MenuItem item) {
 
         String[] order_status = {
-                "Pending", "Accept Order", "Cancel Order", "Completed"
+                "Accept Order", "Cancel Order"
         };
 
         ArrayAdapter<String> dataAdapter =
@@ -193,7 +166,6 @@ public class ListOrders extends AppCompatActivity {
         spinner.setAdapter(dataAdapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ListOrders.this);
-        builder.setTitle("Update Order");
         builder.setView(spinner);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -230,12 +202,6 @@ public class ListOrders extends AppCompatActivity {
         } else if (selectedStatus.equals("Cancel Order")) {
             statusCode = "2";
             Log.d("selectedStatus ", "status: " + statusCode);
-        } else if (selectedStatus.equals("Completed")) {
-            statusCode = "3";
-            Log.d("selectedStatus ", "status: " + statusCode);
-        } else {
-            statusCode = "4";
-            Log.d("selectedStatus ", "status: pending");
         }
 
         return statusCode;

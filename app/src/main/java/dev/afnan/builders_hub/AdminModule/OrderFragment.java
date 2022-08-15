@@ -1,9 +1,7 @@
 package dev.afnan.builders_hub.AdminModule;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -55,7 +53,7 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         checkNetworkConnection connection = new checkNetworkConnection(getActivity());
 
-        recyclerView = view.findViewById(R.id.BookingsRecycler);
+        recyclerView = view.findViewById(R.id.order_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

@@ -86,7 +86,7 @@
             <ListView
                 android:id="@+id/user_profile_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="420dp"
+                android:layout_height="430dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="5dp"
                 tools:listitem="@layout/user_profile_single_row" />

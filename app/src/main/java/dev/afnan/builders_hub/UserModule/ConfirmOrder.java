@@ -30,6 +30,8 @@ import java.util.Locale;
 import dev.afnan.builders_hub.Common.Common;
 import dev.afnan.builders_hub.Models.Order;
 import dev.afnan.builders_hub.Models.UserProfile;
+import dev.afnan.builders_hub.NotificationService.FcmNotificationsSender;
+import dev.afnan.builders_hub.NotificationService.SharedPrefManager;
 import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
@@ -45,6 +47,9 @@ public class ConfirmOrder extends AppCompatActivity {
     FirebaseAuth mAuth;
     public int counter = 1;
     Dialog confirmDialog;
+    private String title;
+    private String message;
+    private String token;
 
     @Override
     protected void onStop() {
@@ -230,7 +235,21 @@ public class ConfirmOrder extends AppCompatActivity {
         DatabaseReference currentOrder = orderReference.child("orderRequests").child(String.valueOf(counter));
         currentOrder.setValue(workInfo);
 
+        initNotificationData();
+        FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/admin", title,
+                message, getApplicationContext(), ConfirmOrder.this);
+
+        notificationsSender.SendNotifications();
+
         return true;
+    }
+
+    private void initNotificationData() {
+        title = "New Order Request";
+        message = "new order from " + Common.CurrentUser.getName() + " waiting for you!";
+        token = SharedPrefManager.getInstance(this).getDeviceToken();
+//        token = Common.adminToken;
+        Log.d("Order", "token is : " + token);
     }
 
     private String getDate() {

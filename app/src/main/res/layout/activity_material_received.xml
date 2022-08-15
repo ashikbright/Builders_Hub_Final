@@ -74,7 +74,6 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColor="#0F1051"
-            android:textStyle="bold"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="682dp" />
 
@@ -95,8 +94,6 @@
             android:focusableInTouchMode="false"
             android:hint="Date"
             android:padding="10dp"
-            android:textColor="#0F1051"
-            android:textStyle="bold"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="243dp"
             tools:layout_editor_absoluteY="682dp" />
@@ -127,8 +124,7 @@
             android:hint="Quantity *"
             android:inputType="number"
             android:padding="10dp"
-            android:textColor="#0F1051"
-            android:textStyle="bold" />
+            android:textColor="#0F1051" />
 
         <TextView
             android:id="@+id/pay_in_title"
@@ -150,8 +146,7 @@
             android:hint="Unit Rate"
             android:inputType="number"
             android:padding="10dp"
-            android:textColor="#0F1051"
-            android:textStyle="bold" />
+            android:textColor="#0F1051" />
 
     </LinearLayout>
 

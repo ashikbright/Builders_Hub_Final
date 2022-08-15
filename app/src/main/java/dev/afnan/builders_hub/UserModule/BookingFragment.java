@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,19 +25,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.Models.Order;
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.ViewHolder.bookingsRecyclerAdapter;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 
-public class BookingFragment extends Fragment {
+public class BookingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     public RecyclerView recyclerView;
     public RecyclerView.LayoutManager layoutManager;
     FirebaseDatabase database;
     DatabaseReference order;
     bookingsRecyclerAdapter myAdapter;
     ArrayList<Order> orderList;
+    public String userID;
+    public SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     @Override
@@ -48,7 +51,8 @@ public class BookingFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         order = database.getReference("Orders");
 
-        recyclerView = view.findViewById(R.id.BookingsRecycler);
+
+        recyclerView = view.findViewById(R.id.bookings_recycler);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -58,20 +62,36 @@ public class BookingFragment extends Fragment {
         recyclerView.setAdapter(myAdapter);
 
         checkNetworkConnection connection = new checkNetworkConnection(getActivity());
+        userID = FirebaseAuth.getInstance().getUid();
 
-        ProgressDialog dialog = new ProgressDialog(getActivity());
-        dialog.setTitle("Please Wait");
-        dialog.setMessage("Loading...");
-        dialog.show();
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
 
-        String userID = FirebaseAuth.getInstance().getUid();
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+                // Fetching data from server
+                userID = FirebaseAuth.getInstance().getUid();
+                loadRecyclerViewData();
+            }
+        });
 
+
+        return view;
+    }
+
+    private void loadRecyclerViewData() {
+
+        mSwipeRefreshLayout.setRefreshing(true);
         if (userID != null) {
-
             order.child(userID).child("orderRequests").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                     orderList.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Order myOrder = dataSnapshot.getValue(Order.class);
@@ -81,22 +101,19 @@ public class BookingFragment extends Fragment {
                     sortOrders();
                     myAdapter.notifyDataSetChanged();
                     Log.d("orderData", "data received successfully");
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Log.d("orderData", "data failed");
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             });
-        }
-        else {
-            Log.d("userId", "user ID is null");
-        }
 
-        Handler handler = new Handler();
-        handler.postDelayed(dialog::dismiss, 300);
-
-        return view;
+        } else {
+            Log.d("userID", "userID is null");
+        }
     }
 
     private void sortOrders() {
@@ -111,4 +128,9 @@ public class BookingFragment extends Fragment {
     }
 
 
+    @Override
+    public void onRefresh() {
+        orderList.clear();
+        loadRecyclerViewData();
+    }
 }

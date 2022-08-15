@@ -63,6 +63,8 @@ public class Material_Used extends AppCompatActivity {
 
         imageButton.setOnClickListener(v -> finish());
 
+        setDate();
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,30 +83,29 @@ public class Material_Used extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String qty = quantity.getText().toString();
-                String useddate = dateused.getText().toString();
-                String usedmaterial = material.getSelectedItem().toString();
+                String usedDate = dateused.getText().toString();
+                String usedMaterial = material.getSelectedItem().toString();
 
                 if (qty.isEmpty()) {
                     quantity.setError("Required!");
                     quantity.requestFocus();
                     return;
                 }
-                if (useddate.isEmpty()) {
+                if (usedDate.isEmpty()) {
                     dateused.setError("Required!");
                     dateused.requestFocus();
                     return;
                 }
 
-                materialsModel.setDate(dateused.getText().toString());
-                materialsModel.setMaterial(material.getSelectedItem().toString());
-
-                if (materialsModel.getMaterial().equals("Select Material")) {
+                if (usedMaterial.equals("Select Material")) {
                     material.requestFocus();
                     Toast.makeText(Material_Used.this, "Select any one Material", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                materialsModel.setQuantity(quantity.getText().toString());
+                materialsModel.setDate(usedDate);
+                materialsModel.setMaterial(usedMaterial);
+                materialsModel.setQuantity(qty);
                 databaseReference.child(String.valueOf(maxid + 1)).setValue(materialsModel);
                 Toast.makeText(Material_Used.this, "Data saved Successfully", Toast.LENGTH_LONG).show();
                 finish();
@@ -115,36 +116,18 @@ public class Material_Used extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         material.setAdapter(arrayAdapter);
 
+
+    }
+
+    private void setDate() {
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
+        final int month = calendar.get(Calendar.MONTH) + 1;
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                updateCalendar();
-            }
-
-            private void updateCalendar() {
-                String Format = "MM/dd/yy";
-                SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
-
-                dateused.setText(sdf.format(calendar.getTime()));
-            }
-        };
-
-        dateused.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(Material_Used.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
+        String date = day + "/" + month + "/" + year;
+        dateused.setText(date);
+        dateused.setEnabled(false);
     }
 }

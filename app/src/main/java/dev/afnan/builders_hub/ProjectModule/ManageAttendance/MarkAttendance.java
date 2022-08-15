@@ -207,10 +207,6 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
 
                 presentCount = snapshot.getChildrenCount() + "";
 
-                if (presentCount == null) {
-                    presentCount = "0";
-                }
-
                 presentCountTextView.setText(presentCount);
             }
 
@@ -316,12 +312,7 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
 
                 sortOrders();
                 if (workerList.isEmpty()) {
-                    Toast.makeText(MarkAttendance.this, "add add atleast one worker", Toast.LENGTH_SHORT).show();
-
-                    final Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed((Runnable) () -> {
-                        finish();
-                    }, 3000);
+                    Toast.makeText(MarkAttendance.this, "please add at least one worker to the project", Toast.LENGTH_SHORT).show();
 
                 }
                 adapter.notifyDataSetChanged();

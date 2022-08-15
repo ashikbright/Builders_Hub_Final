@@ -86,14 +86,16 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
         UploadImage selectedItem = list.get(position);
         final String selectedKey = selectedItem.getKey();
 
-        StorageReference imageref = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
-        imageref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
+
+        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 root.child(selectedKey).removeValue();
                 Toast.makeText(ProjectPhotosDisplayActivity.this, "Image Deleted Successfully", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void sortOrders() {

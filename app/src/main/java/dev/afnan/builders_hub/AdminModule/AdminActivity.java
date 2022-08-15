@@ -20,13 +20,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import dev.afnan.builders_hub.Models.User;
 import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.auth.loginActivity;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
-//import com.ashik.adminmodule.utility.NetworkChangeListener ;
 
 
 public class AdminActivity extends AppCompatActivity {
@@ -55,6 +55,7 @@ public class AdminActivity extends AppCompatActivity {
         loadDefaultFragment();
 
         checkNetworkConnection connection = new checkNetworkConnection(this);
+        FirebaseMessaging.getInstance().subscribeToTopic("admin");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

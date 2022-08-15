@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="Client Name: "
                 android:textColor="#000000"
+                android:fontFamily="@font/roboto"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +45,7 @@
                 android:layout_marginTop="3dp"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:fontFamily="@font/roboto"
                 app:layout_constraintStart_toStartOf="@+id/textView1"
                 app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
@@ -55,6 +57,7 @@
                 android:layout_marginStart="1dp"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:fontFamily="@font/roboto"
                 app:layout_constraintBottom_toBottomOf="@+id/txtPhone1"
                 app:layout_constraintStart_toEndOf="@+id/txtPhone1"
                 app:layout_constraintTop_toTopOf="@+id/txtPhone1" />
@@ -67,6 +70,7 @@
                 android:layout_marginTop="3dp"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:fontFamily="@font/roboto"
                 app:layout_constraintStart_toStartOf="@+id/textView1"
                 app:layout_constraintTop_toBottomOf="@+id/client_phone" />
 
@@ -77,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="name"
+                android:fontFamily="@font/roboto"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView1"
@@ -91,6 +96,7 @@
                 android:textAllCaps="true"
                 android:textColor="#B10202"
                 android:textSize="14sp"
+                android:fontFamily="@font/roboto"
                 app:layout_constraintBottom_toBottomOf="@+id/client_phone"
                 app:layout_constraintEnd_toStartOf="@+id/order_count"
                 app:layout_constraintTop_toTopOf="@+id/client_phone" />
@@ -101,26 +107,11 @@
                 android:layout_height="wrap_content"
                 android:text="11"
                 android:textAllCaps="true"
+                android:fontFamily="@font/roboto"
                 android:textColor="#B10202"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textViewStatus" />
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/call_client"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:background="#27D84C"-->
-            <!--                android:padding="5dp"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:text="Call Now"-->
-            <!--                android:drawableStart="@drawable/ic_baseline_call_24"-->
-            <!--                android:textColor="@color/colorWhite"-->
-            <!--                android:textSize="18sp"-->
-            <!--                android:textStyle="bold"-->
-            <!--                app:layout_constraintEnd_toEndOf="@+id/order_count"-->
-            <!--                app:layout_constraintStart_toStartOf="@+id/textViewStatus"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

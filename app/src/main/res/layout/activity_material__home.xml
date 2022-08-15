@@ -77,18 +77,13 @@
                 android:id="@+id/mat_rec_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
                 android:text="Materials Recieved"
                 android:padding="3dp"
                 android:textColor="#0F1051"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.005"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
         </TableRow>
 
@@ -105,7 +100,8 @@
                 android:id="@+id/mat_rec_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -113,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Material"
                     android:textColor="#0F1051"
                     android:textSize="18sp"
@@ -125,8 +121,8 @@
                     android:id="@+id/tvPurchased"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Purchased"
                     android:textColor="#0F1051"
                     android:textSize="18sp"
@@ -146,7 +142,6 @@
             android:id="@+id/recyclerviewRec"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="10dp"
             tools:listitem="@layout/material_true_row"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.473"
@@ -181,11 +176,12 @@
                 android:id="@+id/mat_used_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:padding="3dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
                 android:text="Materials Used"
+                android:padding="3dp"
                 android:textColor="#0F1051"
-                android:textSize="26sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
         </TableRow>
@@ -204,7 +200,8 @@
                 android:id="@+id/mat_used_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -212,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Material"
                     android:textColor="#0F1051"
                     android:textSize="18sp"
@@ -226,8 +223,8 @@
                     android:id="@+id/tvUsed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Used"
                     android:textColor="#0F1051"
                     android:textSize="18sp"
@@ -248,7 +245,7 @@
             android:id="@+id/recyclerviewUse"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="10dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="parent"
@@ -261,39 +258,41 @@
     <LinearLayout
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_received"
-            android:layout_width="145dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_btn"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center"
-            android:text="RECEIVED"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-        <Button
             android:id="@+id/btn_used"
             android:layout_width="145dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_btn"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="USED"
+            android:textColor="@color/colorFailure"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_received"
+            android:layout_width="145dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/custom_btn"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center"
-            android:text="USED"
-            android:textColor="@color/text_color"
+            android:text="RECEIVED"
+            android:textColor="#024E02"
             android:textSize="18sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

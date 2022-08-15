@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import dev.afnan.builders_hub.R;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.ViewHolder.DisplayAttendanceDateAdapter;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
@@ -110,8 +109,10 @@ public class DisplayAttendanceDate extends AppCompatActivity implements SwipeRef
                     adapter.notifyDataSetChanged();
                     Log.d("attendanceDate", "data received successfully");
                     Log.d("attendanceDate", attendanceList.toString());
+                } else {
+
+                    Toast.makeText(DisplayAttendanceDate.this, "no records found", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(DisplayAttendanceDate.this, "no records found", Toast.LENGTH_SHORT).show();
 
                 mSwipeRefreshLayout.setRefreshing(false);
             }

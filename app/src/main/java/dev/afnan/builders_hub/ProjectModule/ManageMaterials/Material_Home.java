@@ -16,8 +16,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.afnan.builders_hub.R;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import dev.afnan.builders_hub.Models.MaterialsModel;
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.ViewHolder.Material_Adapter;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
@@ -37,6 +36,7 @@ public class Material_Home extends AppCompatActivity {
     private RecyclerView recyclerViewRec, recyclerViewUse;
     private ImageView options;
     private DatabaseReference databaseReference;
+    private DatabaseReference receivedRef;
     private DatabaseReference usedRef;
     private ArrayList<MaterialsModel> receivedMaterialsList = new ArrayList<MaterialsModel>();
     private ArrayList<MaterialsModel> usedMaterialsList = new ArrayList<MaterialsModel>();
@@ -71,7 +71,8 @@ public class Material_Home extends AppCompatActivity {
 
         backButton.setOnClickListener(v -> finish());
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("MaterialInfo").child("ReceivedInfo");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("MaterialInfo");
+        receivedRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("MaterialInfo").child("ReceivedInfo");
         usedRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("MaterialInfo").child("UsedInfo");
 
         recyclerViewRec.setHasFixedSize(true);
@@ -92,6 +93,21 @@ public class Material_Home extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usedMaterialsList.clear();
+                if (!snapshot.exists()) {
+                    Toast.makeText(Material_Home.this, "No records found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        receivedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 receivedMaterialsList.clear();
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -103,12 +119,11 @@ public class Material_Home extends AppCompatActivity {
                     recAdapter.notifyDataSetChanged();
                     Log.d("materialData", "data received successfully");
                     Log.d("materialData", receivedMaterialsList.toString());
+                    MaterialRecTitle.setVisibility(View.VISIBLE);
+                    matRecText.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(Material_Home.this, "No records found", Toast.LENGTH_SHORT).show();
                     MaterialRecTitle.setVisibility(View.GONE);
-                    MaterialUsedTitle.setVisibility(View.GONE);
                     matRecText.setVisibility(View.GONE);
-                    matUsdText.setVisibility(View.GONE);
                 }
             }
 
@@ -132,6 +147,13 @@ public class Material_Home extends AppCompatActivity {
                     useAdapter.notifyDataSetChanged();
                     Log.d("materialData", "data received successfully");
                     Log.d("materialData", receivedMaterialsList.toString());
+
+                    MaterialUsedTitle.setVisibility(View.VISIBLE);
+                    matUsdText.setVisibility(View.VISIBLE);
+
+                } else {
+                    MaterialUsedTitle.setVisibility(View.GONE);
+                    matUsdText.setVisibility(View.GONE);
                 }
             }
 

@@ -4,11 +4,9 @@
     android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dev.afnan.builders_hub.AdminModule.OrderFragment">
-
+    tools:context=".AdminModule.OrderFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bgColor">
@@ -53,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/BookingsRecycler"
+                android:id="@+id/order_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
