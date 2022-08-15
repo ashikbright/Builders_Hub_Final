@@ -3,7 +3,7 @@ package dev.twgroups.builders_hub.Models;
 import com.google.firebase.database.Exclude;
 
 public class InPayment {
-    String amtrecieved;
+    String amtReceived;
     String descriptionIn;
     String DateIN;
     String c_type;
@@ -13,15 +13,15 @@ public class InPayment {
     public InPayment() {
     }
 
-    public InPayment(String amtrecieved, String descriptionIn, String dateIN, String c_type) {
-        this.amtrecieved = amtrecieved;
+    public InPayment(String amtReceived, String descriptionIn, String dateIN, String c_type) {
+        this.amtReceived = amtReceived;
         this.descriptionIn = descriptionIn;
         DateIN = dateIN;
         this.c_type = c_type;
     }
 
-    public String getAmtrecieved() {
-        return amtrecieved;
+    public String getAmtReceived() {
+        return amtReceived;
     }
 
     public String getDescriptionIn() {
@@ -36,8 +36,8 @@ public class InPayment {
         return c_type;
     }
 
-    public void setAmtrecieved(String amtrecieved) {
-        this.amtrecieved = amtrecieved;
+    public void setAmtReceived(String amtReceived) {
+        this.amtReceived = amtReceived;
     }
 
     public void setDescriptionIn(String descriptionIn) {

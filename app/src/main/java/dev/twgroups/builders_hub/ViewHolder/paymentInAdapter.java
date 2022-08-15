@@ -40,7 +40,7 @@ public class paymentInAdapter extends RecyclerView.Adapter<paymentInAdapter.MyVi
         holder.date.setText(inPayment.getDateIN());
         holder.desc.setText(inPayment.getDescriptionIn());
         holder.categ1.setText(inPayment.getC_type());
-        holder.in.setText(new StringBuilder().append("₹").append(inPayment.getAmtrecieved()));
+        holder.in.setText(new StringBuilder().append("₹").append(inPayment.getAmtReceived()));
         holder.setIsRecyclable(false);
 
     }

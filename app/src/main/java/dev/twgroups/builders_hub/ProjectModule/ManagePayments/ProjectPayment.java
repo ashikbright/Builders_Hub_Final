@@ -14,9 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.twgroups.builders_hub.R;
-
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +29,7 @@ import java.util.Map;
 
 import dev.twgroups.builders_hub.Models.InPayment;
 import dev.twgroups.builders_hub.Models.OutPayment;
+import dev.twgroups.builders_hub.R;
 import dev.twgroups.builders_hub.ViewHolder.paymentInAdapter;
 import dev.twgroups.builders_hub.ViewHolder.paymentOutAdapter;
 import dev.twgroups.builders_hub.utility.checkNetworkConnection;
@@ -51,8 +49,9 @@ public class ProjectPayment extends AppCompatActivity {
     private DatabaseReference projectRef;
     private Button btnIn, btnOut;
     private TextView totalIn, totalOut, balAmt;
-    private Integer totalInAmt = 0;
-    private Integer totalOutAmt = 0;
+    private int totalInAmt = 0;
+    private int totalOutAmt = 0;
+    private int balanceAmount = 0;
     private ImageButton imageButton;
     private TextView txtPayInText, txtPayOutText, txtPayInTitle, txtPayOutTitle;
 
@@ -81,8 +80,6 @@ public class ProjectPayment extends AppCompatActivity {
         projectID = mIntent.getStringExtra("projectID");
 
         databaseRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("PaymentInfo");
-        inRef = databaseRef.child("IN");
-        outRef = databaseRef.child("OUT");
 
         RecyclerView recyclerViewIn = findViewById(R.id.recyclerin);
         recyclerViewIn.setHasFixedSize(true);
@@ -98,7 +95,22 @@ public class ProjectPayment extends AppCompatActivity {
         paymentOutAdapter = new paymentOutAdapter(this, outList);
         recyclerViewOut.setAdapter(paymentOutAdapter);
 
-        loadRecyclerViewData();
+        databaseRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("PaymentInfo");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (!snapshot.exists()) {
+                    Toast.makeText(ProjectPayment.this, "No records found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         btnIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,24 +177,40 @@ public class ProjectPayment extends AppCompatActivity {
         databaseRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectID).child("PaymentInfo");
         inRef = databaseRef.child("IN");
         outRef = databaseRef.child("OUT");
+        totalInAmt = 0;
+        totalOutAmt = 0;
+        balanceAmount = 0;
 
-
-        mDBListener = inRef.addValueEventListener(new ValueEventListener() {
+        inRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 inList.clear();
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         InPayment inPayment = dataSnapshot.getValue(InPayment.class);
-                        inPayment.setKey(dataSnapshot.getKey());
+                        if (inPayment != null) {
+                            inPayment.setKey(dataSnapshot.getKey());
+                            try {
+                                int cost = Integer.parseInt(inPayment.getAmtReceived());
+                                totalInAmt += cost;
+                                Log.d("paymentCheck", "in payment is : " + cost);
+                                totalIn.setText(new StringBuilder().append("₹").append(valueOf(totalInAmt)).toString());
+                                inList.add(inPayment);
 
-                        int cost = Integer.parseInt(inPayment.getAmtrecieved());
-                        totalInAmt += cost;
-                        totalIn.setText(new StringBuilder().append("₹").append(valueOf(totalInAmt)).toString());
+                                balanceAmount = totalInAmt - totalOutAmt;
+                                balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
 
-                        Integer balanceAmount = totalInAmt - totalOutAmt;
-                        balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
-                        inList.add(inPayment);
+                            } catch (NumberFormatException e) {
+                                Log.d("paymentCheck", "cost is null ");
+                                e.printStackTrace();
+                            }
+
+
+                        } else {
+                            Log.d("paymentCheck", "in payment is null");
+                        }
+
+
                     }
                     updateInAmt(String.valueOf(totalInAmt));
                     paymentInAdapter.notifyDataSetChanged();
@@ -192,7 +220,6 @@ public class ProjectPayment extends AppCompatActivity {
                     totalIn.setVisibility(View.VISIBLE);
 
                 } else {
-                    Toast.makeText(ProjectPayment.this, "No records found", Toast.LENGTH_SHORT).show();
                     txtPayInText.setVisibility(View.GONE);
                     txtPayInTitle.setVisibility(View.GONE);
                     totalIn.setVisibility(View.GONE);
@@ -206,7 +233,7 @@ public class ProjectPayment extends AppCompatActivity {
             }
         });
 
-        mDBListener = outRef.addValueEventListener(new ValueEventListener() {
+        outRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 outList.clear();
@@ -214,15 +241,23 @@ public class ProjectPayment extends AppCompatActivity {
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         OutPayment outPayment = dataSnapshot.getValue(OutPayment.class);
-                        outPayment.setKey(dataSnapshot.getKey());
+                        if (outPayment != null) {
+                            outPayment.setKey(dataSnapshot.getKey());
+                            int cost = Integer.parseInt(outPayment.getAmtPaid());
+                            Log.d("paymentCheck", "in payment is : " + cost);
+                            totalOutAmt += cost;
+                            totalOut.setText(new StringBuilder().append("₹").append(valueOf(totalOutAmt)).toString());
+                            outList.add(outPayment);
 
-                        int cost = Integer.parseInt(outPayment.getAmtPaid());
-                        totalOutAmt += cost;
-                        totalOut.setText(new StringBuilder().append("₹").append(valueOf(totalOutAmt)).toString());
+                            balanceAmount = totalInAmt - totalOutAmt;
+                            balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
+                        } else {
+                            Log.d("paymentCheck", "Out payment is null");
+                        }
 
-                        Integer balanceAmount = totalInAmt - totalOutAmt;
-                        balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
-                        outList.add(outPayment);
+
+                        Log.d("paymentCheck", "balanceOUT : " + balanceAmount);
+
                     }
 
                     updateOutAmt(String.valueOf(totalOutAmt));
@@ -245,19 +280,15 @@ public class ProjectPayment extends AppCompatActivity {
             }
         });
 
-        Integer balanceAmount = totalInAmt - totalOutAmt;
+        balanceAmount = totalInAmt - totalOutAmt;
         balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        loadRecyclerViewData();
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         loadRecyclerViewData();
     }
+
 }
