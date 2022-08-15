@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import dev.afnan.builders_hub.R;
 
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -39,8 +40,8 @@ import static java.lang.String.valueOf;
 
 public class ProjectPayment extends AppCompatActivity {
     private String projectID;
-    private dev.afnan.builders_hub.ViewHolder.paymentInAdapter paymentInAdapter;
-    private dev.afnan.builders_hub.ViewHolder.paymentOutAdapter paymentOutAdapter;
+    private paymentInAdapter paymentInAdapter;
+    private paymentOutAdapter paymentOutAdapter;
     private ArrayList<InPayment> inList;
     private ArrayList<OutPayment> outList;
     private ValueEventListener mDBListener;
@@ -87,7 +88,7 @@ public class ProjectPayment extends AppCompatActivity {
         recyclerViewIn.setHasFixedSize(true);
         recyclerViewIn.setLayoutManager(new LinearLayoutManager(this));
         inList = new ArrayList<>();
-        paymentInAdapter = new paymentInAdapter(this, inList);//,outlist);
+        paymentInAdapter = new paymentInAdapter(this, inList);
         recyclerViewIn.setAdapter(paymentInAdapter);
 
         RecyclerView recyclerViewOut = findViewById(R.id.recyclerout);
@@ -115,18 +116,18 @@ public class ProjectPayment extends AppCompatActivity {
                         balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
                         inList.add(inPayment);
                     }
-
                     updateInAmt(String.valueOf(totalInAmt));
                     paymentInAdapter.notifyDataSetChanged();
+
+                    txtPayInText.setVisibility(View.VISIBLE);
+                    txtPayInTitle.setVisibility(View.VISIBLE);
+                    totalIn.setVisibility(View.VISIBLE);
 
                 } else {
                     Toast.makeText(ProjectPayment.this, "No records found", Toast.LENGTH_SHORT).show();
                     txtPayInText.setVisibility(View.GONE);
-                    txtPayOutText.setVisibility(View.GONE);
                     txtPayInTitle.setVisibility(View.GONE);
-                    txtPayOutTitle.setVisibility(View.GONE);
                     totalIn.setVisibility(View.GONE);
-                    totalOut.setVisibility(View.GONE);
 
                 }
             }
@@ -141,21 +142,33 @@ public class ProjectPayment extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 outList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    OutPayment outPayment = dataSnapshot.getValue(OutPayment.class);
-                    outPayment.setKey(dataSnapshot.getKey());
+                if (snapshot.exists()) {
 
-                    int cost = Integer.parseInt(outPayment.getAmtPaid());
-                    totalOutAmt += cost;
-                    totalOut.setText(new StringBuilder().append("₹").append(valueOf(totalOutAmt)).toString());
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        OutPayment outPayment = dataSnapshot.getValue(OutPayment.class);
+                        outPayment.setKey(dataSnapshot.getKey());
 
-                    Integer balanceAmount = totalInAmt - totalOutAmt;
-                    balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
-                    outList.add(outPayment);
+                        int cost = Integer.parseInt(outPayment.getAmtPaid());
+                        totalOutAmt += cost;
+                        totalOut.setText(new StringBuilder().append("₹").append(valueOf(totalOutAmt)).toString());
+
+                        Integer balanceAmount = totalInAmt - totalOutAmt;
+                        balAmt.setText((new StringBuilder().append("₹").append(valueOf(balanceAmount)).toString()));
+                        outList.add(outPayment);
+                    }
+
+                    updateOutAmt(String.valueOf(totalOutAmt));
+                    paymentOutAdapter.notifyDataSetChanged();
+
+                    txtPayOutText.setVisibility(View.VISIBLE);
+                    txtPayOutTitle.setVisibility(View.VISIBLE);
+                    totalOut.setVisibility(View.VISIBLE);
+                } else {
+                    txtPayOutText.setVisibility(View.GONE);
+                    txtPayOutTitle.setVisibility(View.GONE);
+                    totalOut.setVisibility(View.GONE);
                 }
 
-                updateOutAmt(String.valueOf(totalOutAmt));
-                paymentOutAdapter.notifyDataSetChanged();
             }
 
             @Override

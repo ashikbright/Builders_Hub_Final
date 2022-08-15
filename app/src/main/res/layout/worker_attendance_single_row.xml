@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Akshay Kumar"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/colorBlack"
             android:textSize="18dp" />
 
@@ -28,6 +29,7 @@
             android:id="@+id/worker_type_attendance_single_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:text="Mistri" />
     </LinearLayout>
 
@@ -45,15 +47,17 @@
             android:id="@+id/radio_present"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="7dp"
+            android:layout_marginEnd="7dp"
             android:text="P"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/colorSuccess" />
 
         <RadioButton
             android:id="@+id/radio_absent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/colorFailure"
             android:text="A" />
     </RadioGroup>

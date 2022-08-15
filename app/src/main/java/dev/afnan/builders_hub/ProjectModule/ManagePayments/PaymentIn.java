@@ -60,9 +60,6 @@ public class PaymentIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 payIN();
-                edtAmountReceived.getText().clear();
-                edtDescription.getText().clear();
-                edtDate.getText().clear();
             }
         });
 
@@ -91,6 +88,11 @@ public class PaymentIn extends AppCompatActivity {
             edtAmountReceived.requestFocus();
             return;
         }
+        if (descriptionIN.isEmpty()) {
+            edtDescription.setError("Required!");
+            edtDescription.requestFocus();
+            return;
+        }
 
         if (categories_list.equals("Select Category")) {
             spinner.requestFocus();
@@ -101,5 +103,12 @@ public class PaymentIn extends AppCompatActivity {
         InPayment inPayment = new InPayment(amountRcvd, descriptionIN, inDate, categories_list);
         databaseReference.push().setValue(inPayment);
         Toast.makeText(this, "Payment Received ...", Toast.LENGTH_SHORT).show();
+
+        edtAmountReceived.getText().clear();
+        edtDescription.getText().clear();
+        edtDate.getText().clear();
+
+        finish();
+
     }
 }

@@ -24,12 +24,12 @@ public class MaterialsModel {
     }
 
     @Exclude
-    public String getMaterialid() {
+    public String getMaterialID() {
         return materialid;
     }
 
     @Exclude
-    public void setMaterialid(String materialid) {
+    public void setMaterialID(String materialid) {
         this.materialid = materialid;
     }
 

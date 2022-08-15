@@ -16,8 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import dev.afnan.builders_hub.R;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import dev.afnan.builders_hub.Models.MaterialsModel;
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
 public class Material_Received extends AppCompatActivity {
@@ -173,7 +172,6 @@ public class Material_Received extends AppCompatActivity {
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.materialsModel, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         material.setAdapter(arrayAdapter);
-
 
     }
 

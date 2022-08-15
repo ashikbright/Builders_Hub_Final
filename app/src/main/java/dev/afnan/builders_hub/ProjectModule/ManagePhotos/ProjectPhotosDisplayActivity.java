@@ -35,7 +35,7 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
     private ImageAdapter adapter;
     private FirebaseStorage mStorage;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
-    private ValueEventListener mDBListner;
+    private ValueEventListener mDBListener;
     private ImageButton imageButton;
 
     @Override
@@ -56,7 +56,7 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
         imageButton.setOnClickListener(v -> finish());
 
         mStorage = FirebaseStorage.getInstance();
-        mDBListner = root.addValueEventListener(new ValueEventListener() {
+        mDBListener = root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
@@ -111,6 +111,6 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        root.removeEventListener(mDBListner);
+        root.removeEventListener(mDBListener);
     }
 }

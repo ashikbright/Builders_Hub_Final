@@ -15,14 +15,14 @@ import java.util.ArrayList;
 
 import dev.afnan.builders_hub.Models.MaterialsModel;
 
-public class Material_Adapter extends RecyclerView.Adapter<Material_Adapter.ViewHolder> {
+public class MaterialsUsedReceivedAdapter extends RecyclerView.Adapter<MaterialsUsedReceivedAdapter.ViewHolder> {
 
     ArrayList<MaterialsModel> list;
     Context context;
     int selected;
 
 
-    public Material_Adapter(ArrayList<MaterialsModel> list, Context context, int i) {
+    public MaterialsUsedReceivedAdapter(ArrayList<MaterialsModel> list, Context context, int i) {
         this.list = list;
         this.context = context;
         selected = i;
@@ -30,7 +30,7 @@ public class Material_Adapter extends RecyclerView.Adapter<Material_Adapter.View
 
     @NonNull
     @Override
-    public Material_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MaterialsUsedReceivedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (selected == 1) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_true_row, parent, false);
@@ -38,11 +38,11 @@ public class Material_Adapter extends RecyclerView.Adapter<Material_Adapter.View
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_false_row, parent, false);
         }
 
-        return new Material_Adapter.ViewHolder(v);
+        return new MaterialsUsedReceivedAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Material_Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MaterialsUsedReceivedAdapter.ViewHolder holder, int position) {
         MaterialsModel materialsModel = list.get(position);
 
         holder.txtMaterial.setText(materialsModel.getMaterial());

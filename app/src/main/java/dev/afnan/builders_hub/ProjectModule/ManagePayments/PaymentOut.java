@@ -63,9 +63,6 @@ public class PaymentOut extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 payOut();
-                edtAmountPaid.getText().clear();
-                edtDescription.getText().clear();
-                edtDate.getText().clear();
             }
         });
     }
@@ -95,6 +92,12 @@ public class PaymentOut extends AppCompatActivity {
             return;
         }
 
+        if (descriptionOUT.isEmpty()) {
+            edtDescription.setError("Required!");
+            edtDescription.requestFocus();
+            return;
+        }
+
         if (categories_list.equals("Select Category")) {
             spinner.requestFocus();
             Toast.makeText(PaymentOut.this, "Select any one Category", Toast.LENGTH_SHORT).show();
@@ -104,5 +107,11 @@ public class PaymentOut extends AppCompatActivity {
         OutPayment outPayment = new OutPayment(amountPaid, descriptionOUT, outDate, categories_list);
         databaseReference.push().setValue(outPayment);
         Toast.makeText(this, "Payment Given ...", Toast.LENGTH_SHORT).show();
+
+        edtAmountPaid.getText().clear();
+        edtDescription.getText().clear();
+        edtDate.getText().clear();
+
+        finish();
     }
 }

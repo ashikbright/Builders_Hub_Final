@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import dev.afnan.builders_hub.R;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +35,7 @@ import java.util.Comparator;
 
 import dev.afnan.builders_hub.Interface.onAttendanceWorkerListSelected;
 import dev.afnan.builders_hub.Models.Workers;
+import dev.afnan.builders_hub.R;
 import dev.afnan.builders_hub.ViewHolder.ProjectMarkAttendanceAdapter;
 import dev.afnan.builders_hub.utility.checkNetworkConnection;
 
@@ -63,6 +62,7 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
     private DatabaseReference absentRef;
     ArrayList<Workers> presentWorkers = new ArrayList<>();
     ArrayList<Workers> absentWorker = new ArrayList<>();
+    private ArrayList<Workers> newWorkerList = new ArrayList<>();
 
 
     @Override
@@ -90,7 +90,6 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
         projectID = mIntent.getStringExtra("projectID");
 
         setDate();
-        checkDataExists();
 
         getAttendanceCount();
 
@@ -129,12 +128,34 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
             @Override
             public void onClick(View v) {
 
+                int presentWorkersCount, absentWorkersCount, totalWorkersCount;
+
+                if (presentWorkers.isEmpty() && absentWorker.isEmpty()) {
+                    Toast.makeText(MarkAttendance.this, "Please mark attendance first.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                presentWorkersCount = presentWorkers.size();
+                absentWorkersCount = absentWorker.size();
+                totalWorkersCount = newWorkerList.size();
+
+                if (presentWorkersCount + absentWorkersCount < totalWorkersCount) {
+                    Toast.makeText(MarkAttendance.this, "Please mark attendance of all the workers!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 addRecordsToFirebase();
+
+
                 Toast.makeText(MarkAttendance.this, "Data saved successfully.", Toast.LENGTH_SHORT).show();
 
                 presentWorkers.clear();
                 absentWorker.clear();
 
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed((Runnable) () -> {
+                    finish();
+                }, 2000);
             }
         });
 
@@ -339,6 +360,7 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
 
     }
 
+
     @Override
     public void onRefresh() {
         workerList.clear();
@@ -347,7 +369,19 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
 
 
     @Override
-    public void onItemSelected(ArrayList<Workers> presentWorkersList, ArrayList<Workers> absentWorkersList) {
+    protected void onStart() {
+        super.onStart();
+        checkDataExists();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        checkDataExists();
+    }
+
+    @Override
+    public void onItemSelected(ArrayList<Workers> presentWorkersList, ArrayList<Workers> absentWorkersList, ArrayList<Workers> workersList) {
 
         if (presentWorkersList != null && presentWorkersList.size() > 0) {
             presentWorkers = presentWorkersList;
@@ -357,6 +391,10 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
             absentWorker = absentWorkersList;
         }
 
+
+        if (workersList != null && workersList.size() > 0) {
+            newWorkerList = workerList;
+        }
 
     }
 }

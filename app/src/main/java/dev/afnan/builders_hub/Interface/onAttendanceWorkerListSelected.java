@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import dev.afnan.builders_hub.Models.Workers;
 
 public interface onAttendanceWorkerListSelected {
-    void onItemSelected(ArrayList<Workers> presentWorkersList, ArrayList<Workers> absentWorkersList);
+    void onItemSelected(ArrayList<Workers> presentWorkersList, ArrayList<Workers> absentWorkersList, ArrayList<Workers> workersList);
 }

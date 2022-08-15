@@ -62,28 +62,45 @@
 
     <Button
         android:id="@+id/btnupload"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_layout"
-        android:text="Click To Upload"
-        android:textColor="@color/text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/custom_btn"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="15dp"
+        android:shadowColor="@color/colorBlack"
+        android:shadowDx="1"
+        android:shadowDy="0"
+        android:shadowRadius="1"
+        android:text="Click Here To Upload"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnshow"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintVertical_bias="0.107" />
 
     <Button
         android:id="@+id/btnshow"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_layout"
-        android:text="Show All"
-        android:textColor="@color/text_color"
-        app:layout_constraintBottom_toBottomOf="@+id/btnupload"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/custom_btn"
+        android:fontFamily="@font/roboto_bold"
+        android:shadowColor="@color/colorBlack"
+        android:shadowDx="1"
+        android:shadowDy="0"
+        android:shadowRadius="1"
+        android:text="Display All Images"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:layout_margin="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnupload"
-        app:layout_constraintTop_toTopOf="@+id/btnupload" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -94,13 +111,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65999997" />
+        app:layout_constraintVertical_bias="0.759" />
 
     <TextView
         android:id="@+id/text5"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+
         android:gravity="center"
         android:hint="Click Above Button to add image"
         android:textSize="18sp"

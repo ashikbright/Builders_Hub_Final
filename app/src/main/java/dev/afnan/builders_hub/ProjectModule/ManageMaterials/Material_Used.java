@@ -116,7 +116,6 @@ public class Material_Used extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         material.setAdapter(arrayAdapter);
 
-
     }
 
     private void setDate() {

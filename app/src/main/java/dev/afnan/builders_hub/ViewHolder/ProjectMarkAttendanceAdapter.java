@@ -34,7 +34,7 @@ public class ProjectMarkAttendanceAdapter extends RecyclerView.Adapter<ProjectMa
     String projectID;
     String formatted_date;
     DatabaseReference attendanceRef;
-    dev.afnan.builders_hub.Interface.onAttendanceWorkerListSelected onAttendanceWorkerListSelected;
+    onAttendanceWorkerListSelected onAttendanceWorkerListSelected;
 
     public ProjectMarkAttendanceAdapter(Context context, ArrayList<Workers> workersList, String projectID, onAttendanceWorkerListSelected onAttendanceWorkerListSelected, String formatted_date) {
         this.context = context;
@@ -119,7 +119,7 @@ public class ProjectMarkAttendanceAdapter extends RecyclerView.Adapter<ProjectMa
                         absentWorkerList.remove(workersList.get(position));
                     }
 
-                    onAttendanceWorkerListSelected.onItemSelected(presentWorkerList, absentWorkerList);
+                    onAttendanceWorkerListSelected.onItemSelected(presentWorkerList, absentWorkerList, workersList);
 
 
                 }
