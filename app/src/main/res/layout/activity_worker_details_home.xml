@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="dev.afnan.builders_hub.AdminModule.HomeFragment">
+    tools:context="dev.twgroups.builders_hub.AdminModule.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"

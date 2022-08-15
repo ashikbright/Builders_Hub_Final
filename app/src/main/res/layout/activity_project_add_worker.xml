@@ -5,7 +5,7 @@
     android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dev.afnan.builders_hub.WorkerModule.WorkersDetails">
+    tools:context="dev.twgroups.builders_hub.WorkerModule.WorkersDetails">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBG"
-    tools:context="dev.afnan.builders_hub.onboarding_screen.slideActivity">
+    tools:context="dev.twgroups.builders_hub.onboarding_screen.slideActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

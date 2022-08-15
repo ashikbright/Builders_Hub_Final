@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bgColor"
     android:id="@+id/swipe_container"
-    tools:context="dev.afnan.builders_hub.ProjectModule.ManageAttendance.DisplayAttendanceDate">
+    tools:context="dev.twgroups.builders_hub.ProjectModule.ManageAttendance.DisplayAttendanceDate">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
