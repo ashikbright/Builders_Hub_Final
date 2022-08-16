@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -79,38 +80,49 @@ public class BookingFragment extends Fragment implements SwipeRefreshLayout.OnRe
             }
         });
 
-
         return view;
     }
 
     private void loadRecyclerViewData() {
+        try {
 
-        mSwipeRefreshLayout.setRefreshing(true);
-        if (userID != null) {
-            order.child(userID).child("orderRequests").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    orderList.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Order myOrder = dataSnapshot.getValue(Order.class);
-                        orderList.add(myOrder);
+            mSwipeRefreshLayout.setRefreshing(true);
+            if (userID != null) {
+                order.child(userID).child("orderRequests").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        orderList.clear();
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Order myOrder = dataSnapshot.getValue(Order.class);
+                                orderList.add(myOrder);
+                            }
+                            sortOrders();
+                            Log.d("orderData", "data received successfully");
+                        } else {
+                            Toast.makeText(getActivity(), "No records found", Toast.LENGTH_SHORT).show();
+                            orderList.clear();
+                        }
+
+                        myAdapter.notifyDataSetChanged();
+                        mSwipeRefreshLayout.setRefreshing(false);
+
                     }
 
-                    sortOrders();
-                    myAdapter.notifyDataSetChanged();
-                    Log.d("orderData", "data received successfully");
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("orderData", "data failed");
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                });
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.d("orderData", "data failed");
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            });
+            } else {
+                Log.d("userID", "userID is null");
+            }
 
-        } else {
-            Log.d("userID", "userID is null");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

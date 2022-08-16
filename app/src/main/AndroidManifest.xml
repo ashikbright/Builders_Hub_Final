@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="dev.twgroups.builders_hub.onboarding_screen.SplashActivity"
+            android:name=".onboarding_screen.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,111 +25,111 @@
         </activity>
 
         <activity
-            android:name="dev.twgroups.builders_hub.onboarding_screen.slideActivity"
+            android:name=".onboarding_screen.slideActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="dev.twgroups.builders_hub.auth.forgotPasswordActivity"
+            android:name=".auth.forgotPasswordActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.auth.registerActivity"
+            android:name=".auth.registerActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.auth.loginActivity"
+            android:name=".auth.loginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.auth.AccessLevelDecider"
+            android:name=".auth.AccessLevelDecider"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.UserModule.ConfirmOrder"
+            android:name=".UserModule.ConfirmOrder"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.UserModule.UserActivity"
+            android:name=".UserModule.UserActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.UserModule.AboutUs"
+            android:name=".UserModule.AboutUs"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.AdminModule.AdminActivity"
+            android:name=".AdminModule.AdminActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.AdminModule.ListOrders"
+            android:name=".AdminModule.ListOrders"
             android:exported="true"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ProjectsHome"
+            android:name=".ProjectModule.ProjectsHome"
             android:exported="true" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageAttendance.DisplayAttendanceDetails"
+            android:name=".ProjectModule.ManageAttendance.DisplayAttendanceDetails"
             android:exported="true" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageAttendance.DisplayAttendanceDate"
+            android:name=".ProjectModule.ManageAttendance.DisplayAttendanceDate"
             android:exported="true" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageAttendance.MarkAttendance"
+            android:name=".ProjectModule.ManageAttendance.MarkAttendance"
             android:exported="true" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageMaterials.Material_Used"
+            android:name=".ProjectModule.ManageMaterials.Material_Used"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageMaterials.Material_Home"
+            android:name=".ProjectModule.ManageMaterials.Material_Home"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageMaterials.Material_Received"
+            android:name=".ProjectModule.ManageMaterials.Material_Received"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageWorkers.ProjectManageWorker"
+            android:name=".ProjectModule.ManageWorkers.ProjectManageWorker"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManageWorkers.ProjectAddWorker"
+            android:name=".ProjectModule.ManageWorkers.ProjectAddWorker"
             android:exported="true"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManagePhotos.ProjectPhotosDisplayActivity"
+            android:name=".ProjectModule.ManagePhotos.ProjectPhotosDisplayActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManagePhotos.ProjectPhotos"
+            android:name=".ProjectModule.ManagePhotos.ProjectPhotos"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManagePayments.PaymentOut"
+            android:name=".ProjectModule.ManagePayments.PaymentOut"
             android:exported="true"
             android:screenOrientation="portrait" />
 
@@ -139,22 +139,22 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.ProjectModule.ManagePayments.ProjectPayment"
+            android:name=".ProjectModule.ManagePayments.ProjectPayment"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.WorkerModule.WorkersDetails"
+            android:name=".WorkerModule.WorkersDetails"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.WorkerModule.WorkerDetailsHome"
+            android:name=".WorkerModule.WorkerDetailsHome"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="dev.twgroups.builders_hub.WorkerModule.WorkerRegistration"
+            android:name=".WorkerModule.WorkerRegistration"
             android:exported="true"
             android:screenOrientation="portrait" />
 
@@ -164,7 +164,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name="dev.twgroups.builders_hub.NotificationService.FirebaseMessagingService"
+            android:name=".NotificationService.FirebaseMessagingService"
             android:permission="TODO"
             tools:ignore="ExportedService">
             <intent-filter>

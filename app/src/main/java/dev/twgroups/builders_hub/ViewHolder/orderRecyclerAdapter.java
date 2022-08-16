@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.twgroups.builders_hub.R;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import dev.twgroups.builders_hub.Models.User;
+import dev.twgroups.builders_hub.R;
 
 public class orderRecyclerAdapter extends RecyclerView.Adapter<orderRecyclerAdapter.OrderViewHolder> {
 
@@ -35,6 +36,8 @@ public class orderRecyclerAdapter extends RecyclerView.Adapter<orderRecyclerAdap
     private OnItemClickListener mListener;
     private String userId;
     private DatabaseReference orderRef;
+    private DatabaseReference ordersCountRef;
+    private DatabaseReference userInfoRef;
     private int orderCount = 0;
 
     public orderRecyclerAdapter(Context context, ArrayList<User> orderList) {
@@ -113,7 +116,36 @@ public class orderRecyclerAdapter extends RecyclerView.Adapter<orderRecyclerAdap
         userId = userInfo.getUserID();
 
         orderRef = FirebaseDatabase.getInstance().getReference().child("Orders");
-        DatabaseReference ordersCountRef = orderRef.child(userId).child("orderRequests");
+        ordersCountRef = orderRef.child(userId).child("orderRequests");
+        userInfoRef = orderRef.child(userId).child("userInfo");
+
+
+        orderRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getChildrenCount() != 2) {
+                    Log.d("orderTest", "data not found, count : " + snapshot.getChildrenCount());
+                    orderRef.child(userId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("orderTest", "deleted successfully");
+                            } else {
+                                Log.d("orderTest", "not deleted");
+                            }
+                        }
+                    });
+                } else {
+                    Log.d("orderTest", "data is valid count : " + snapshot.getChildrenCount());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         ordersCountRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,12 +153,10 @@ public class orderRecyclerAdapter extends RecyclerView.Adapter<orderRecyclerAdap
 
                 if (snapshot.exists()) {
                     orderCount = (int) snapshot.getChildrenCount();
-                } else {
-                    Log.d("ColumnExist", "Not found");
                 }
+
                 String orderText = Integer.toString(orderCount);
                 holder.txtTotalOrders.setText(orderText);
-                Log.d("ColumnExist", "order count: " + orderText);
             }
 
             @Override

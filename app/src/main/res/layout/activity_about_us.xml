@@ -108,7 +108,7 @@
         android:id="@+id/textView"
         android:layout_width="184dp"
         android:layout_height="25dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="26dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Rate Us:"
         android:textAllCaps="true"
