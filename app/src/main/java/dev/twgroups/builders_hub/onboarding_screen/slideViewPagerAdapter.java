@@ -121,8 +121,8 @@ public class slideViewPagerAdapter extends PagerAdapter {
                 ind2.setImageResource(R.drawable.unselected);
                 ind3.setImageResource(R.drawable.selected);
 
-                title.setText("Near You");
-                desc.setText("Workers Near Your Location");
+                title.setText("Realtime Database");
+                desc.setText("Firebase Security for your data.");
 
                 prev.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);

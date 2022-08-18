@@ -152,7 +152,7 @@ public class ConfirmOrder extends AppCompatActivity {
             public void run() {
                 confirmDialog.dismiss();
             }
-        }, 3000);
+        }, 3300);
     }
 
 

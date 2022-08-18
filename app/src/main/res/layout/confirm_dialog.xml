@@ -8,18 +8,31 @@
     android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/imageView"
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="192dp"-->
+<!--        android:layout_height="167dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/success" />-->
+
+    <com.airbnb.lottie.LottieAnimationView
         android:layout_width="192dp"
         android:layout_height="167dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/success" />
+        android:id="@+id/animation_view"
+        app:lottie_rawRes="@raw/accepted_tick"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"/>
+
 
     <TextView
         android:id="@+id/textView"

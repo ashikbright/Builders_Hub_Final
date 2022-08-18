@@ -29,7 +29,6 @@ public class AccessLevelDecider extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private String userID;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class AccessLevelDecider extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         user = mAuth.getCurrentUser();
-        progressBar = findViewById(R.id.access_level_progress_bar);
 
         checkNetworkConnection connection = new checkNetworkConnection(this);
 
