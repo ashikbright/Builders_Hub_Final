@@ -27,8 +27,6 @@ public class AboutUs extends AppCompatActivity {
 
 
         ratingBar = findViewById(R.id.ratingBar);
-        ratingBar.setStepSize(1);
-        ratingBar.setMax(5);
 
         dbRef = FirebaseDatabase.getInstance().getReference().child("Ratings");
 

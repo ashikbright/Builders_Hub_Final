@@ -164,6 +164,7 @@ public class ListOrders extends AppCompatActivity {
         spinner.setAdapter(dataAdapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ListOrders.this);
+        builder.setTitle("Update Order");
         builder.setView(spinner);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

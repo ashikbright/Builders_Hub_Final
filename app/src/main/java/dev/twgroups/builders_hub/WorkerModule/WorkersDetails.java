@@ -62,7 +62,7 @@ public class WorkersDetails extends AppCompatActivity implements SwipeRefreshLay
 
         mSwipeRefreshLayout = findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark,
                 android.R.color.holo_green_dark,
                 android.R.color.holo_orange_dark,
                 android.R.color.holo_blue_dark);
