@@ -57,8 +57,18 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
         Intent resultIntent = new Intent(this, AdminActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+             pendingIntent = PendingIntent.getActivity(this, 1, resultIntent,
+                    PendingIntent.FLAG_MUTABLE);
+        }
+        else
+        {
+            pendingIntent = PendingIntent.getActivity(this, 1, resultIntent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        }
 
 
         builder.setContentTitle(remoteMessage.getNotification().getTitle());

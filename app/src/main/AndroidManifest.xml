@@ -82,15 +82,18 @@
 
         <activity
             android:name=".ProjectModule.ManageAttendance.DisplayAttendanceDetails"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ProjectModule.ManageAttendance.DisplayAttendanceDate"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ProjectModule.ManageAttendance.MarkAttendance"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ProjectModule.ManageMaterials.Material_Used"
@@ -166,6 +169,7 @@
         <service
             android:name=".NotificationService.FirebaseMessagingService"
             android:permission="TODO"
+            android:exported="false"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
