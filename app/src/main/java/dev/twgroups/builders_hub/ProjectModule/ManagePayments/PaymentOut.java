@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import dev.twgroups.builders_hub.R;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import dev.twgroups.builders_hub.Models.OutPayment;
+import dev.twgroups.builders_hub.R;
 import dev.twgroups.builders_hub.utility.checkNetworkConnection;
 
 public class PaymentOut extends AppCompatActivity {
@@ -87,6 +86,19 @@ public class PaymentOut extends AppCompatActivity {
 
         if (amountPaid.isEmpty()) {
             edtAmountPaid.setError("Required!");
+            edtAmountPaid.requestFocus();
+            return;
+        }
+
+        try {
+            if (Integer.parseInt(amountPaid) <= 0) {
+                edtAmountPaid.setError("please enter at least 1");
+                edtAmountPaid.requestFocus();
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            edtAmountPaid.setError("Please enter a valid amount!");
             edtAmountPaid.requestFocus();
             return;
         }

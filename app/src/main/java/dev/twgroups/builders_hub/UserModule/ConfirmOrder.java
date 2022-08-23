@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -51,11 +52,6 @@ public class ConfirmOrder extends AppCompatActivity {
     private String message;
     private String token;
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +118,7 @@ public class ConfirmOrder extends AppCompatActivity {
                     editLocation.getText().clear();
 
                     showSuccessDialog();
+                    editLocation.clearFocus();
                 }
             }
         });
@@ -171,16 +168,23 @@ public class ConfirmOrder extends AppCompatActivity {
             return false;
         }
 
-        if (Integer.parseInt(totalWorkers) == 0 || Integer.parseInt(totalWorkers) < 0) {
-            editTotalWorkers.setError("please enter at least 1");
+        try {
+            if (Integer.parseInt(totalWorkers) <= 0) {
+                editTotalWorkers.setError("please enter at least 1");
+                editTotalWorkers.requestFocus();
+                return false;
+            }
+            if (Integer.parseInt(totalWorkers) > 20) {
+                editTotalWorkers.setError("Not more than 20 workers!");
+                editTotalWorkers.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            editTotalWorkers.setError("Please enter positive numbers only!");
             editTotalWorkers.requestFocus();
             return false;
         }
-        if (Integer.parseInt(totalWorkers) > 20) {
-            editTotalWorkers.setError("Not more than 20 workers!");
-            editTotalWorkers.requestFocus();
-            return false;
-        }
+
 
         if (totalDays.isEmpty()) {
             editNoDays.setError("Required!");
@@ -188,14 +192,20 @@ public class ConfirmOrder extends AppCompatActivity {
             return false;
         }
 
-        if (Integer.parseInt(totalDays) == 0 || Integer.parseInt(totalDays) < 0) {
-            editNoDays.setError("please enter at least 1");
-            editNoDays.requestFocus();
-            return false;
-        }
+        try {
+            if (Integer.parseInt(totalDays) <= 0) {
+                editNoDays.setError("please enter at least 1");
+                editNoDays.requestFocus();
+                return false;
+            }
 
-        if (Integer.parseInt(totalDays) > 30) {
-            editNoDays.setError("Maximum limit is 30 days!");
+            if (Integer.parseInt(totalDays) > 30) {
+                editNoDays.setError("Maximum limit is 30 days!");
+                editNoDays.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            editNoDays.setError("Please enter positive numbers only!");
             editNoDays.requestFocus();
             return false;
         }
@@ -203,6 +213,12 @@ public class ConfirmOrder extends AppCompatActivity {
 
         if (address.isEmpty()) {
             editLocation.setError("Required!");
+            editLocation.requestFocus();
+            return false;
+        }
+
+        if (!address.matches("^[a-zA-Z _,.]+")) {
+            editLocation.setError("Enter a valid address");
             editLocation.requestFocus();
             return false;
         }

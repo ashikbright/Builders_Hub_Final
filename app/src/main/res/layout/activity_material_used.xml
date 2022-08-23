@@ -94,6 +94,7 @@
         android:ems="10"
         android:hint="Quantity *"
         android:inputType="number"
+        android:maxLength="2"
         android:padding="10dp"
         android:textColor="#0F1051"
         android:textStyle="bold"

@@ -87,6 +87,20 @@ public class PaymentIn extends AppCompatActivity {
             edtAmountReceived.requestFocus();
             return;
         }
+
+        try {
+            if (Integer.parseInt(amountRcvd) <= 0) {
+                edtAmountReceived.setError("please enter at least 1");
+                edtAmountReceived.requestFocus();
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            edtAmountReceived.setError("Please enter a valid amount!");
+            edtAmountReceived.requestFocus();
+            return;
+        }
+
         if (descriptionIN.isEmpty()) {
             edtDescription.setError("Required!");
             edtDescription.requestFocus();

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import dev.twgroups.builders_hub.Models.OutPayment;
 import dev.twgroups.builders_hub.R;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +32,7 @@ public class Material_Used extends AppCompatActivity {
     private ImageButton imageButton;
     private Button saveused;
     private Spinner material;
-    private EditText dateused, quantity;
+    private EditText dateused, editQuantity;
     private DatabaseReference databaseReference;
     private int maxid = 0;
     private MaterialsModel materialsModel = new MaterialsModel();
@@ -46,7 +47,7 @@ public class Material_Used extends AppCompatActivity {
         imageButton = findViewById(R.id.btn_back_list_order);
         material = findViewById(R.id.spinnerused);
         dateused = findViewById(R.id.edDateused);
-        quantity = findViewById(R.id.edQuantityused);
+        editQuantity = findViewById(R.id.edQuantityused);
         saveused = findViewById(R.id.btn_save_used);
         Intent mIntent = getIntent();
         projectID = mIntent.getStringExtra("projectID");
@@ -78,18 +79,25 @@ public class Material_Used extends AppCompatActivity {
         saveused.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String qty = quantity.getText().toString();
+                String qty = editQuantity.getText().toString();
                 String usedDate = dateused.getText().toString();
                 String usedMaterial = material.getSelectedItem().toString();
 
                 if (qty.isEmpty()) {
-                    quantity.setError("Required!");
-                    quantity.requestFocus();
+                    editQuantity.setError("Required!");
+                    editQuantity.requestFocus();
                     return;
                 }
-                if (usedDate.isEmpty()) {
-                    dateused.setError("Required!");
-                    dateused.requestFocus();
+                try {
+                    if (Integer.parseInt(qty) <= 0) {
+                        editQuantity.setError("please enter at least 1");
+                        editQuantity.requestFocus();
+                        return;
+                    }
+
+                } catch (NumberFormatException e) {
+                    editQuantity.setError("Please enter a valid quantity!");
+                    editQuantity.requestFocus();
                     return;
                 }
 
@@ -104,6 +112,8 @@ public class Material_Used extends AppCompatActivity {
                 materialsModel.setQuantity(qty);
                 databaseReference.child(String.valueOf(maxid + 1)).setValue(materialsModel);
                 Toast.makeText(Material_Used.this, "Data saved Successfully", Toast.LENGTH_LONG).show();
+
+
                 finish();
             }
         });
@@ -113,6 +123,7 @@ public class Material_Used extends AppCompatActivity {
         material.setAdapter(arrayAdapter);
 
     }
+
 
     private void setDate() {
 

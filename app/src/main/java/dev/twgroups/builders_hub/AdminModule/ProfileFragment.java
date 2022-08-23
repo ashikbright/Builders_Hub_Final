@@ -199,7 +199,7 @@ public class ProfileFragment extends Fragment {
                                         Intent intent = new Intent(getActivity(), loginActivity.class);
                                         startActivity(intent);
 
-                                        FragmentManager fm = getActivity().getSupportFragmentManager();         //removing everything from the backstack
+                                        FragmentManager fm = getActivity().getSupportFragmentManager();         //removing everything from the backStack
                                         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                                             fm.popBackStack();
                                         }
