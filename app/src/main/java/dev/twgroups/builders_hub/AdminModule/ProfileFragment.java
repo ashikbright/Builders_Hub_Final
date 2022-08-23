@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -191,14 +192,19 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         progressBar.setVisibility(View.VISIBLE);
+                                        FirebaseMessaging.getInstance().unsubscribeFromTopic("admin");      //removing subscription for admin.
                                         mAuth.signOut();
                                         progressBar.setVisibility(View.GONE);
+
                                         Intent intent = new Intent(getActivity(), loginActivity.class);
                                         startActivity(intent);
-                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+
+                                        FragmentManager fm = getActivity().getSupportFragmentManager();         //removing everything from the backstack
                                         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                                             fm.popBackStack();
                                         }
+
+
                                         requireActivity().finish();
                                     }
                                 })

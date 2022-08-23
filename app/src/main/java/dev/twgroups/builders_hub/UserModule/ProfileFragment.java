@@ -26,6 +26,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -169,20 +171,36 @@ public class ProfileFragment extends Fragment {
                     break;
 
                 case 7:
+
                     new AlertDialog.Builder(getActivity())
                             .setIcon(R.drawable.warning_icon)
                             .setTitle("LOGOUT")
                             .setMessage("Do you really want to log out?")
                             .setPositiveButton("Yes", (dialog, which) -> {
                                 progressBar.setVisibility(View.VISIBLE);
+
+                                FirebaseUser user = mAuth.getCurrentUser();
+
+                                if (user != null) {
+                                    String userID = user.getUid();
+                                    Log.d("userID", "id is : " + userID);
+                                    FirebaseMessaging.getInstance().unsubscribeFromTopic(userID);
+                                } else {
+                                    Log.d("userID", "id is : null");
+                                }
+
                                 mAuth.signOut();
                                 progressBar.setVisibility(View.GONE);
+
                                 Intent intent = new Intent(getActivity(), loginActivity.class);
                                 startActivity(intent);
+
                                 FragmentManager fm = getActivity().getSupportFragmentManager();
                                 for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                                     fm.popBackStack();
                                 }
+
+
                                 requireActivity().finish();
                             })
                             .setNegativeButton("No", null)

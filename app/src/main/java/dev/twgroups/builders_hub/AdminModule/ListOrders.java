@@ -160,7 +160,7 @@ public class ListOrders extends AppCompatActivity {
 
         final Spinner spinner = new Spinner(ListOrders.this);
         spinner.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        spinner.setPadding(3, 3, 3, 3);
+        spinner.setPadding(5, 5, 5, 5);
         spinner.setAdapter(dataAdapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ListOrders.this);
@@ -171,10 +171,31 @@ public class ListOrders extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                String selectedStatus = spinner.getSelectedItem().toString();
-                statusCode = updateStatus(selectedStatus);
-                myAdapter.updateOrder(item.getGroupId(), statusCode, userID);
-                Log.d("selectedStatus ", "status: " + statusCode);
+                AlertDialog.Builder newDialog = new AlertDialog.Builder(ListOrders.this);
+                newDialog.setTitle("Alert!!");
+                newDialog.setMessage("Do you really want to change status?");
+                newDialog.setIcon(R.drawable.ic_dialog_alert);
+
+
+                newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String selectedStatus = spinner.getSelectedItem().toString();
+                        statusCode = updateStatus(selectedStatus);
+                        myAdapter.updateOrder(item.getGroupId(), statusCode, userID);
+                        Log.d("selectedStatus ", "status: " + statusCode);
+                    }
+                });
+
+                newDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("selectedItem", "operation cancelled.");
+                    }
+                });
+
+                newDialog.create().show();
 
             }
         });

@@ -55,7 +55,6 @@ public class ConfirmOrder extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-
     }
 
     @Override
@@ -152,7 +151,7 @@ public class ConfirmOrder extends AppCompatActivity {
             public void run() {
                 confirmDialog.dismiss();
             }
-        }, 3300);
+        }, 3000);
     }
 
 

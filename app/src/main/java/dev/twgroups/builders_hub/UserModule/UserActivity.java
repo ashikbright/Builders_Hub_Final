@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class UserActivity extends AppCompatActivity {
@@ -90,6 +91,7 @@ public class UserActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("Users");
         if (user != null) {
             userID = user.getUid();
+            FirebaseMessaging.getInstance().subscribeToTopic(userID);
         }
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {

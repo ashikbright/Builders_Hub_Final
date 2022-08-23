@@ -147,15 +147,17 @@ public class MarkAttendance extends AppCompatActivity implements SwipeRefreshLay
                 addRecordsToFirebase();
 
 
-                Toast.makeText(MarkAttendance.this, "Data saved successfully.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MarkAttendance.this, "Thank you, Data saved successfully.", Toast.LENGTH_SHORT).show();
 
                 presentWorkers.clear();
                 absentWorker.clear();
+                finish();
 
-                final Handler handler = new Handler(Looper.getMainLooper());
-                handler.postDelayed((Runnable) () -> {
-                    finish();
-                }, 2000);
+//                final Handler handler = new Handler(Looper.getMainLooper());
+//                handler.postDelayed((Runnable) () -> {
+//
+//                }, 2000);
+
             }
         });
 

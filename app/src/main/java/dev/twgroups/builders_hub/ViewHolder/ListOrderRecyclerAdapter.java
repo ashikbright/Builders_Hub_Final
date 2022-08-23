@@ -1,5 +1,6 @@
 package dev.twgroups.builders_hub.ViewHolder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 import dev.twgroups.builders_hub.Common.Common;
 import dev.twgroups.builders_hub.Models.Order;
+import dev.twgroups.builders_hub.NotificationService.FcmNotificationsSender;
 import dev.twgroups.builders_hub.R;
 
 import static android.content.ContentValues.TAG;
@@ -37,11 +39,16 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
     ArrayList<Order> orderList;
     private int orderCount = 0;
     DatabaseReference orderRef;
+    private String title = " ";
+    private String message = " ";
+    private String token;
+    private Activity mActivity;
 
 
     public ListOrderRecyclerAdapter(Context context, ArrayList<Order> orderList) {
         this.context = context;
         this.orderList = orderList;
+        mActivity = (Activity) context;
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -105,11 +112,11 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
         orderRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(userID);
         String orderID = CurrentOrder.getOrderId();
 
-        updateStatusInFirebase(statusCode, CurrentOrder, orderID);
+        updateStatusInFirebase(statusCode, CurrentOrder, orderID, userID);
         notifyDataSetChanged();
     }
 
-    private void updateStatusInFirebase(String statusCode, Order currentOrder, String orderID) {
+    private void updateStatusInFirebase(String statusCode, Order currentOrder, String orderID, String userID) {
 
         Query query = orderRef.child("orderRequests").orderByChild("orderId").equalTo(orderID);
 
@@ -135,6 +142,7 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Log.d("updateStatus", "child updated successfully!");
+                                        sendNotification(currentOrder.getStatus(), userID);
                                     }
                                 }
                             });
@@ -152,6 +160,35 @@ public class ListOrderRecyclerAdapter extends RecyclerView.Adapter<ListOrderRecy
             }
         };
         query.addListenerForSingleValueEvent(valueEventListener);
+
+    }
+
+    private void sendNotification(String status, String userID) {
+        if (initNotificationData(status)) {
+            token = "/topics/" + userID;
+            FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token, title,
+                    message, context.getApplicationContext(), mActivity);
+            notificationsSender.SendNotifications();
+
+        }
+
+    }
+
+    private boolean initNotificationData(String status) {
+
+        if (Integer.parseInt(status) == 1) {
+            title = "Thank you for your order.";
+            message = "Your order is Accepted";
+            return true;
+
+        } else if (Integer.parseInt(status) == 2) {
+            title = "Order Cancelled";
+            message = "We are sorry to inform you that your order was Cancelled";
+            return true;
+
+        }
+
+        return false;
 
     }
 
