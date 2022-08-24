@@ -8,32 +8,46 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.health.UidHealthStats;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import dev.twgroups.builders_hub.Common.Common;
+import dev.twgroups.builders_hub.Models.Projects;
+import dev.twgroups.builders_hub.Models.User;
 import dev.twgroups.builders_hub.ProjectModule.ManagePhotos.ProjectPhotosDisplayActivity;
 import dev.twgroups.builders_hub.R;
 import dev.twgroups.builders_hub.ViewHolder.ProfileListAdapter;
@@ -57,6 +71,11 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage storage;
     private Uri imageURI;
     private StorageReference storageReference;
+    private EditText editName, editPhone, editEmail;
+    private Button create_project;
+    private TextView closeButton;
+    ProfileListAdapter listAdapter;
+    private DatabaseReference userRef;
 
 
     @Override
@@ -132,22 +151,25 @@ public class ProfileFragment extends Fragment {
                 name, phone, email, " ", " ", " ", " "
         };
 
-        ProfileListAdapter listAdapter = new ProfileListAdapter(getActivity(), imageIDs, itemNames, data);
+        listAdapter = new ProfileListAdapter(getActivity(), imageIDs, itemNames, data);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             int selectedItemPosition = position + 1;
             switch (selectedItemPosition) {
                 case 1:
-                    Toast.makeText(getActivity(), "Name", Toast.LENGTH_SHORT).show();
+                    Log.d("profile ", "name : " + name);
+                    showDialog(name, phone, email);
                     break;
 
                 case 2:
-                    Toast.makeText(getActivity(), "Phone", Toast.LENGTH_SHORT).show();
+                    Log.d("profile ", "phone : " + phone);
+                    showDialog(name, phone, email);
                     break;
 
                 case 3:
-                    Toast.makeText(getActivity(), "Email", Toast.LENGTH_SHORT).show();
+                    Log.d("profile ", "email : " + email);
+                    showDialog(name, phone, email);
                     break;
 
                 case 4:
@@ -210,6 +232,98 @@ public class ProfileFragment extends Fragment {
             }
 
         });
+
+    }
+
+
+    private void showDialog(String name, String phone, String email) {
+
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.edit_profile, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        editName = dialogView.findViewById(R.id.p_name);
+        editPhone = dialogView.findViewById(R.id.p_phone);
+        editEmail = dialogView.findViewById(R.id.p_email);
+
+        editName.setText(name);
+        editPhone.setText(phone);
+        editEmail.setText(email);
+
+        editPhone.setEnabled(false);
+        editEmail.setEnabled(false);
+
+        editName.setSelection(editName.getText().length());
+
+        create_project = dialogView.findViewById(R.id.btn_create);
+        closeButton = dialogView.findViewById(R.id.btn_close);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCancelable(true);
+        alertDialog.show();
+
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+
+        create_project.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertToFirebase(alertDialog);
+            }
+        });
+
+
+    }
+
+
+    private void insertToFirebase(AlertDialog alertDialog) {
+
+        String Name = editName.getText().toString();
+
+        String UID = mAuth.getCurrentUser().getUid();
+
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(UID);
+
+        if (Name.isEmpty()) {
+            editName.setError("cannot be blank");
+            editName.requestFocus();
+            return;
+        }
+
+        if (!Name.matches("^[a-zA-Z _,.]+")) {
+            editName.setError("Enter a valid Name");
+            editName.requestFocus();
+            return;
+        }
+
+        SharedPreferences.Editor editor = requireActivity().getSharedPreferences("userInfo", MODE_PRIVATE).edit();
+        editor.putString("name", name);
+        editor.apply();
+
+        Map<String, Object> updates = new HashMap<String, Object>();
+        updates.put("name", Name);
+
+        userRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Name updated successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Failed to  update!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        listAdapter.notifyDataSetChanged();
+        alertDialog.dismiss();
 
     }
 
