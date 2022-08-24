@@ -210,14 +210,32 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             return false;
         }
 
+        if (!projectName.matches("^[a-zA-Z _,.]+")) {
+            pr_name.setError("Enter a valid Name");
+            pr_name.requestFocus();
+            return false;
+        }
+
         if (address.isEmpty()) {
             pr_address.setError("Address is required");
             pr_name.requestFocus();
             return false;
         }
 
+        if (!address.matches("^[a-zA-Z _,.]+")) {
+            pr_address.setError("Enter a valid Address");
+            pr_address.requestFocus();
+            return false;
+        }
+
         if (cityName.isEmpty()) {
             pr_city.setError("City name is required");
+            pr_city.requestFocus();
+            return false;
+        }
+
+        if (!cityName.matches("^[a-zA-Z _,.]+")) {
+            pr_city.setError("Enter a valid City");
             pr_city.requestFocus();
             return false;
         }

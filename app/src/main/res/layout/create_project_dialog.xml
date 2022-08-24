@@ -5,18 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:layout_margin="5dp"
     android:background="@drawable/alert_dialog_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_add"
-            android:layout_margin="20dp"
+            android:id="@+id/animation_view"
+            app:lottie_rawRes="@raw/add_icon"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_margin="10dp"
+            app:lottie_speed="0.6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +33,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:text="X"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:fontFamily="@font/roboto_medium"
             android:layout_margin="5dp"
             android:textColor="#ff0000"

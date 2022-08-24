@@ -72,10 +72,9 @@
             android:ems="10"
             android:hint="Party Name *"
             android:inputType="textPersonName"
+            android:maxLength="15"
             android:padding="10dp"
-            android:textColor="#0F1051"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="682dp" />
+            android:textColor="#0F1051" />
 
         <EditText
             android:id="@+id/edDate"
@@ -117,6 +116,7 @@
             android:layout_weight="1"
             android:hint="Quantity *"
             android:inputType="number"
+            android:maxLength="2"
             android:padding="10dp"
             android:textColor="#0F1051" />
 
@@ -139,6 +139,7 @@
             android:layout_weight="1"
             android:hint="Unit Rate"
             android:inputType="number"
+            android:maxLength="4"
             android:padding="10dp"
             android:textColor="#0F1051" />
 

@@ -78,12 +78,40 @@ public class Material_Received extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!editQuantity.getText().toString().equals("") && !editUnitRate.getText().toString().equals("")) {
-                    int templ = Integer.parseInt(editQuantity.getText().toString());
-                    int temp2 = Integer.parseInt(editUnitRate.getText().toString());
-                    txtAmount.setText(String.valueOf(templ * temp2));
-                }
 
+                try {
+                    if (!editQuantity.getText().toString().equals("") && !editUnitRate.getText().toString().equals("")) {
+                        int templ, temp2;
+                        templ = temp2 = 0;
+
+                        try {
+                            templ = Integer.parseInt(editQuantity.getText().toString());
+                            if (templ <= 0) {
+                                editQuantity.setError("please enter at least 1");
+                                editQuantity.requestFocus();
+                                return;
+                            }
+                        } catch (NumberFormatException e) {
+                            editQuantity.setError("invalid!");
+                        }
+
+                        try {
+                            temp2 = Integer.parseInt(editUnitRate.getText().toString());
+                            if (temp2 <= 0) {
+                                editUnitRate.setError("please enter at least 1");
+                                editUnitRate.requestFocus();
+                                return;
+                            }
+                        } catch (NumberFormatException e) {
+                            editUnitRate.setError("invalid!");
+                        }
+
+                        txtAmount.setText(String.valueOf(templ * temp2));
+                    }
+
+                } catch (NumberFormatException e) {
+                    txtAmount.setText("0");
+                }
 
             }
 
@@ -126,6 +154,12 @@ public class Material_Received extends AppCompatActivity {
 
                 if (partyName.isEmpty()) {
                     editPartyName.setError("Required!");
+                    editPartyName.requestFocus();
+                    return;
+                }
+
+                if (!partyName.matches("^[a-zA-Z _,.]+")) {
+                    editPartyName.setError("Enter a valid Name");
                     editPartyName.requestFocus();
                     return;
                 }
@@ -175,6 +209,12 @@ public class Material_Received extends AppCompatActivity {
                 if (modelclass.getMaterial().equals("Select Material")) {
                     SpinnerMaterial.requestFocus();
                     Toast.makeText(Material_Received.this, "Select any one Material", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (txtAmount.getText().toString().equals("0")) {
+                    editQuantity.requestFocus();
+                    Toast.makeText(Material_Received.this, "Please enter valid data.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
