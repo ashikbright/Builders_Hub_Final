@@ -74,36 +74,54 @@ public class registerActivity extends AppCompatActivity {
         String password2 = editPassword2.getText().toString().trim();
         String isUser = "1";
 
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             editName.setError("Full name is required!");
             editName.requestFocus();
             return;
         }
+        if (!name.matches("^[a-zA-Z _,.]+")) {
+            editName.setError("Enter a valid Name");
+            editName.requestFocus();
+            return;
+        }
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             editEmail.setError("Email is required!");
             editEmail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editEmail.setError("Please enter a valid Email!");
             editEmail.requestFocus();
             return;
         }
 
-        if (phone.isEmpty()){
+        if (phone.isEmpty()) {
             editPhone.setError("Phone number is required!");
             editPhone.requestFocus();
             return;
         }
-        if (phone.length() != 10){
+
+        try {
+            if (Long.parseLong(phone) <= 0) {
+                editPhone.setError("please enter a valid phone number");
+                editPhone.requestFocus();
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            editPhone.setError("please enter a valid phone number");
+            editPhone.requestFocus();
+            return;
+        }
+        if (phone.length() != 10) {
             editPhone.setError("please enter a valid phone number");
             editPhone.requestFocus();
             return;
         }
 
-        if (password1.isEmpty()){
+        if (password1.isEmpty()) {
             editPassword1.setError("Password is required!");
             editPassword1.requestFocus();
             return;

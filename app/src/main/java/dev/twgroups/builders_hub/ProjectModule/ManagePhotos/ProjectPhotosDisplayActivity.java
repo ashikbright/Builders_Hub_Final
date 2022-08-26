@@ -1,6 +1,10 @@
 package dev.twgroups.builders_hub.ProjectModule.ManagePhotos;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -8,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import dev.twgroups.builders_hub.R;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +26,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import dev.twgroups.builders_hub.Common.Common;
 import dev.twgroups.builders_hub.Models.UploadImage;
+import dev.twgroups.builders_hub.R;
 import dev.twgroups.builders_hub.ViewHolder.ImageAdapter;
 import dev.twgroups.builders_hub.utility.checkNetworkConnection;
 
@@ -34,9 +38,10 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
 
     private ImageAdapter adapter;
     private FirebaseStorage mStorage;
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
+    private DatabaseReference imageRef;
     private ValueEventListener mDBListener;
     private ImageButton imageButton;
+    private int statusCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +54,35 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        adapter = new ImageAdapter(this, list);
+
+        imageRef = FirebaseDatabase.getInstance().getReference("Image");
+        Intent mIntent = getIntent();
+        statusCode = mIntent.getIntExtra("statusCode", 0);
+
+
+        adapter = new ImageAdapter(this, list, statusCode);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListner(ProjectPhotosDisplayActivity.this);
+        adapter.setOnItemClickListener(ProjectPhotosDisplayActivity.this);
         imageButton = findViewById(R.id.btn_back_list_order);
         imageButton.setOnClickListener(v -> finish());
 
         mStorage = FirebaseStorage.getInstance();
-        mDBListener = root.addValueEventListener(new ValueEventListener() {
+        mDBListener = imageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     UploadImage uploadImage = dataSnapshot.getValue(UploadImage.class);
-                    uploadImage.setKey(dataSnapshot.getKey());
-                    list.add(uploadImage);
+                    if (uploadImage != null) {
+                        uploadImage.setKey(dataSnapshot.getKey());
+                        list.add(uploadImage);
+                        sortOrders();
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(ProjectPhotosDisplayActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                sortOrders();
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -85,16 +101,36 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
     public void onDeleteClick(int position) {
         UploadImage selectedItem = list.get(position);
         final String selectedKey = selectedItem.getKey();
-
         StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
 
-        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Alert!!!");
+        dialog.setMessage("Are you sure you want to delete? \nOnce deleted cannot be reverted.");
+        dialog.setIcon(R.drawable.ic_dialog_alert);
+
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                root.child(selectedKey).removeValue();
-                Toast.makeText(ProjectPhotosDisplayActivity.this, "Image Deleted Successfully", Toast.LENGTH_SHORT).show();
+            public void onClick(DialogInterface dialog, int which) {
+
+                imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        ProjectPhotosDisplayActivity.this.imageRef.child(selectedKey).removeValue();
+                        Toast.makeText(ProjectPhotosDisplayActivity.this, "Image Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
+
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("selectedItem", "operation cancelled.");
+            }
+        });
+
+        dialog.create().show();
 
     }
 
@@ -111,6 +147,6 @@ public class ProjectPhotosDisplayActivity extends AppCompatActivity implements I
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        root.removeEventListener(mDBListener);
+        imageRef.removeEventListener(mDBListener);
     }
 }

@@ -71,9 +71,11 @@ public class forgotPasswordActivity extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(forgotPasswordActivity.this, "Please check your email and try again!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(forgotPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("forgotPassword", "error is : " + task.getException().getMessage());
                         }
                         progressBar.setVisibility(View.GONE);
+                        finish();
                     }
                 });
 

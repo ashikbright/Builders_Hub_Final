@@ -5,7 +5,7 @@
     android:layout_marginTop="20dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
-    android:backgroundTint="#AFB2CCAF"
+    android:backgroundTint="#AFDDEDDB"
     android:elevation="5dp">
 
     <LinearLayout

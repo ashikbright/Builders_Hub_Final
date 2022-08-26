@@ -169,6 +169,7 @@
                 android:ems="10"
                 android:hint="@string/full_name"
                 android:inputType="textPersonName"
+                android:maxLength="20"
                 android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -261,9 +262,9 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:fontFamily="@font/roboto"
-
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:maxLength="18"
                 android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -291,6 +292,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/confirm_password"
                 android:inputType="textPassword"
+                android:maxLength="18"
                 android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 

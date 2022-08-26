@@ -1,6 +1,7 @@
 package dev.twgroups.builders_hub.ViewHolder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,29 +14,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.twgroups.builders_hub.R;
-
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 import dev.twgroups.builders_hub.Models.UploadImage;
+import dev.twgroups.builders_hub.R;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
     private ArrayList<UploadImage> mlist;
     private Context context;
     private OnItemClickListener mListner;
+    private int statusCode;
 
-    public ImageAdapter(Context context, ArrayList<UploadImage> mlist) {
+    public ImageAdapter(Context context, ArrayList<UploadImage> mlist, int statusCode) {
         this.context = context;
         this.mlist = mlist;
+        this.statusCode = statusCode;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.image_container, parent, false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, statusCode);
     }
 
     @Override
@@ -57,13 +59,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, View.OnClickListener {
         ImageView imageView;
         public TextView textViewName;
+        public int statusCode;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, int statusCode) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.pay_out_title);
             imageView = itemView.findViewById(R.id.img);
+            this.statusCode = statusCode;
             itemView.setOnClickListener(this);
-            itemView.setOnCreateContextMenuListener(this);
+            if (statusCode == 1) {
+                itemView.setOnCreateContextMenuListener(this);
+                Log.d("statusCode", "admin clicked");
+            } else {
+                Log.d("statusCode", "user clicked");
+            }
         }
 
         @Override
@@ -105,7 +114,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
         void onDeleteClick(int position);
     }
 
-    public void setOnItemClickListner(OnItemClickListener listner) {
-        mListner = listner;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListner = listener;
     }
 }

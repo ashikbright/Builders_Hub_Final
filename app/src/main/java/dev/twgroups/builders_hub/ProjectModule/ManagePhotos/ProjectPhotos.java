@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import dev.twgroups.builders_hub.ProjectModule.ProjectsHome;
 import dev.twgroups.builders_hub.R;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,7 +63,9 @@ public class ProjectPhotos extends AppCompatActivity {
         showAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProjectPhotos.this, ProjectPhotosDisplayActivity.class));
+                Intent intent = new Intent(ProjectPhotos.this, ProjectPhotosDisplayActivity.class);
+                intent.putExtra("statusCode", 1);
+                startActivity(intent);
             }
         });
 

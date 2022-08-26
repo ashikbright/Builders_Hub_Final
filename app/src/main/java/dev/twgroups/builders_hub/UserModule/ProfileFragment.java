@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.health.UidHealthStats;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -46,8 +44,6 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dev.twgroups.builders_hub.Common.Common;
-import dev.twgroups.builders_hub.Models.Projects;
-import dev.twgroups.builders_hub.Models.User;
 import dev.twgroups.builders_hub.ProjectModule.ManagePhotos.ProjectPhotosDisplayActivity;
 import dev.twgroups.builders_hub.R;
 import dev.twgroups.builders_hub.ViewHolder.ProfileListAdapter;
@@ -304,9 +300,6 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        SharedPreferences.Editor editor = requireActivity().getSharedPreferences("userInfo", MODE_PRIVATE).edit();
-        editor.putString("name", name);
-        editor.apply();
 
         Map<String, Object> updates = new HashMap<String, Object>();
         updates.put("name", Name);
@@ -316,13 +309,13 @@ public class ProfileFragment extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getActivity(), "Name updated successfully.", Toast.LENGTH_SHORT).show();
+                    updateName(Name);
                 } else {
                     Toast.makeText(getActivity(), "Failed to  update!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        listAdapter.notifyDataSetChanged();
         alertDialog.dismiss();
 
     }
@@ -409,6 +402,27 @@ public class ProfileFragment extends Fragment {
         Handler handler = new Handler();
         handler.postDelayed(dialog::dismiss, 1300);
 
+
+    }
+
+
+    private void updateName(String newName) {
+
+        SharedPreferences.Editor editor = requireActivity().getSharedPreferences("userInfo", MODE_PRIVATE).edit();
+        editor.putString("name", newName);
+        editor.putString("phone", phone);
+        editor.putString("email", email);
+        editor.apply();
+
+        SharedPreferences sp = requireActivity().getSharedPreferences("userInfo", MODE_PRIVATE);
+        name = sp.getString("name", newName);
+
+        Log.d("profileName", "name is " + name);
+        Log.d("profileName", "phone is " + phone);
+        Log.d("profileName", "email is " + email);
+
+        listAdapter.notifyDataSetChanged();
+        displayList(newName, phone, email);
 
     }
 

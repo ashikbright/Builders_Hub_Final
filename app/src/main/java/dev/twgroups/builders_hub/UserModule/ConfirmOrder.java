@@ -110,6 +110,7 @@ public class ConfirmOrder extends AppCompatActivity {
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkNetworkConnection connection = new checkNetworkConnection(getApplicationContext());
 
                 Boolean res = checkoutData();
                 if (res) {
